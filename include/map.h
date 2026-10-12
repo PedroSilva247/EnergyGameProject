@@ -1,6 +1,5 @@
 #ifndef MAP
 #define MAP
-#define N 6
 
 typedef struct {
 	int width;

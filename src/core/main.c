@@ -4,8 +4,10 @@
 #include <stdlib.h>
 #include "../../include/gameplay_screen.h"
 #include "../../include/map.h"
+#include "../../include/player.h"
 #define N 6
 #define MAX_MAP_SIZE 30
+
 
 
 
@@ -27,6 +29,8 @@ int main() {
 		{'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
 	};
 	Map* map2 = createMap(10, 10, &newGrid[0][0]);
+
+	Player* player1 = createPlayer(1, 1, 10, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
 	
 	
     InitWindow(1000, 800, "EnergyGame");
@@ -38,6 +42,7 @@ int main() {
 			ClearBackground(RAYWHITE);
 
 			DrawGameplayScreen(map2);
+			DrawPlayer(player1);
 
 		EndDrawing();
     }
