@@ -32,3 +32,8 @@ void DrawPlayer(Player* player) {
         RED
     );
 }
+
+void updatePlayer(Player* player) {
+    
+
+}
