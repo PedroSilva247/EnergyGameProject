@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "../../include/map.h"
 #include "../../include/config.h"
+#include "../../include/mapElements.h"
+
 
 Map* createMap(int width, int height, char* grid) {
 	Map* map = (Map*) malloc(sizeof(Map));
@@ -24,6 +26,12 @@ void DrawMap(Map* map) {
 			switch (map->grid[i * map->width + j]) {
 				case '#':
 					DrawRectangle(currentX, currentY, tile, tile, BLUE);
+					break;
+				case 'c':
+					DrawCrystal(currentX, currentY);
+					break;
+				case 'f':
+					DrawFinishLine(currentX, currentY);
 					break;
 			}
 			currentX += tile;

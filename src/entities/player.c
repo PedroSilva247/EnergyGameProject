@@ -33,6 +33,7 @@ void DrawPlayer(Player* player) {
     );
 }
 
+
 void updatePlayer(Player* player) {
     
 

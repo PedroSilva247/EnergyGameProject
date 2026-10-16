@@ -10,6 +10,7 @@ typedef struct {
 	int y;
     int energy;
     float radius;
+    int crystal;                    //Cristais do player
     ControlKeys* controlKeys;
 } Player;
 
