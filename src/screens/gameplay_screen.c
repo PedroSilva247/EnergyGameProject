@@ -6,6 +6,7 @@
 
 
 void DrawGameplayScreen(Map* map, Player *player) {
+		verifyKeyboard(player, map);
 		DrawMap(map);
 		DrawPlayer(player);
 }

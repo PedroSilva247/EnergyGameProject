@@ -36,9 +36,7 @@ void DrawPlayer(Player* player) {
 }
 
 
-void updatePlayer(Player* player) {
-    
-}
+
 
 
 int isWalkable(Map* map, int x, int y) {
@@ -64,4 +62,23 @@ void movePlayer(char axis, int step, Map* map, Player* player) {
             player->y += step;
         } 
     }
+}
+
+void verifyKeyboard(Player* player, Map* map) {
+    if (IsKeyPressed(player->controlKeys->keyDown)){
+        movePlayer('y', 1, map, player);
+    }
+    if (IsKeyPressed(player->controlKeys->keyUp)){
+        movePlayer('y', -1, map, player);
+    }
+    if (IsKeyPressed(player->controlKeys->keyRight)){
+        movePlayer('x', 1, map, player);
+    }
+    if (IsKeyPressed(player->controlKeys->keyLeft)){
+        movePlayer('x', -1, map, player);
+    }
+}
+
+void updatePlayer(Player* player) {
+    
 }

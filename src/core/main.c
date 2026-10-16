@@ -32,7 +32,6 @@ int main() {
 
 	Player* player1 = createPlayer(1, 1, 10, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
 	
-	movePlayer('x', 1, map2, player1);
 
     InitWindow(1000, 800, "EnergyGame");
 

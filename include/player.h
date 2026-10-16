@@ -29,4 +29,6 @@ void updatePlayer(Player* player);
 
 void movePlayer(char axis, int step, Map* map, Player* player);
 
+void verifyKeyboard(Player* player, Map* map);
+
 #endif
