@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "../../include/player.h"
 #include "../../include/config.h"
+#include "../../include/map.h"
+
 
 Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* controlKeys) {
     Player* player = (Player*) malloc(sizeof(Player));
@@ -36,5 +38,30 @@ void DrawPlayer(Player* player) {
 
 void updatePlayer(Player* player) {
     
+}
 
+
+int isWalkable(Map* map, int x, int y) {
+    if(x < 0 || x > map->width || y < 0 || y > map->height) {
+        return 0;
+    }
+    if(map->grid[y*map->width + x] == '#') {
+        return 0;
+    }
+    return 1;
+}
+
+void movePlayer(char axis, int step, Map* map, Player* player) {
+    int x = player->x;
+    int y = player->y;
+
+    if(axis == 'x') {
+        if(isWalkable(map, x + step, y)) {
+            player->x += step;
+        } 
+    } else if(axis == 'y') {
+        if(isWalkable(map, x, y + step)) {
+            player->y += step;
+        } 
+    }
 }

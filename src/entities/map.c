@@ -33,6 +33,12 @@ void DrawMap(Map* map) {
 				case 'f':
 					DrawFinishLine(currentX, currentY);
 					break;
+				case 't':
+					DrawTrap(currentX, currentY);
+					break;
+				case 'r':
+					DrawRecover(currentX, currentY);
+					break;
 			}
 			currentX += tile;
 		}

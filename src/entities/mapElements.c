@@ -4,6 +4,8 @@
 #include "../../include/config.h"
 
 
+
+
 void DrawCrystal(int x,int y) {
     DrawRectangle(
         x + tile/2 - tile/2/2, // x + metade do tile - metade do tamanho do cristal
@@ -20,6 +22,27 @@ void DrawFinishLine(int x, int y) {
         y,
         tile,
         tile,
+        YELLOW
+    );
+}
+
+void DrawTrap(int x,int y) {
+    DrawRectangle(
+        x + tile/2 - tile/2/2, // x + metade do tile - metade do tamanho do cristal
+        y + tile/2 - tile/2/2, // Declaracao do tamanho do crystal
+        tile * 0.5,
+        tile * 0.5,
+        BROWN
+    );
+}
+
+void DrawRecover(int x,int y) {
+    DrawRectangle(
+        x + tile/2 - tile/2/2, // x + metade do tile - metade do tamanho do cristal
+        y + tile/2 - tile/2/2, // Declaracao do tamanho do crystal
+        tile * 0.5,
+        tile * 0.5,
         GREEN
     );
 }
+
