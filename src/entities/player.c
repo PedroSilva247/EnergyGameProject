@@ -53,15 +53,25 @@ void movePlayer(char axis, int step, Map* map, Player* player) {
     int x = player->x;
     int y = player->y;
 
-    if(axis == 'x') {
-        if(isWalkable(map, x + step, y)) {
-            player->x += step;
-        } 
-    } else if(axis == 'y') {
-        if(isWalkable(map, x, y + step)) {
-            player->y += step;
-        } 
+    if(player->energy > 0) {
+        if(axis == 'x') {
+            if(isWalkable(map, x + step, y)) {
+                player->x += step;
+            } else {
+                return;
+            }
+        } else if(axis == 'y') {
+            if(isWalkable(map, x, y + step)) {
+                player->y += step;
+            } else {
+                return;
+            }
+        }
+        player->energy--;
     }
+
+
+    
 }
 
 void verifyKeyboard(Player* player, Map* map) {

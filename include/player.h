@@ -11,8 +11,8 @@ typedef struct {
 	int x;
 	int y;
     int energy;
-    float radius;
-    int crystal;                    //Cristais do player
+    int crystal;                //Cristais do Player
+    float radius;                    
     ControlKeys* controlKeys;
 } Player;
 

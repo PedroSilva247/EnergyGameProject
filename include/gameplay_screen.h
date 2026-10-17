@@ -6,5 +6,7 @@
 #define N 6
 
 void DrawGameplayScreen(Map* map, Player* player);
+void DrawHeader(Player* player);
+void DrawEnergy(Player* player);
 
 #endif
