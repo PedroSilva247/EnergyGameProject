@@ -1,8 +1,8 @@
-#include <raylib.h>
-#include <stdlib.h>
-
 #ifndef MAPELEMENTS
 #define MAPELEMENTS
+
+#include <raylib.h>
+#include <stdlib.h>
 
 void DrawCrystal(int x, int y);
 

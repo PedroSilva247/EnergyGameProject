@@ -10,6 +10,7 @@ Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* contro
     player->x = x;
     player->y = y;
     player->energy = energy;
+    player->crystals = 0;
     player->radius = radius;
     player->controlKeys = controlKeys;
 
@@ -87,6 +88,15 @@ void verifyKeyboard(Player* player, Map* map) {
     if (IsKeyPressed(player->controlKeys->keyLeft)){
         movePlayer('x', -1, map, player);
     }
+}
+
+char verifyPlayerTile(Player* player, Map* map) {
+    return map->grid[player->y*map->width + player->x];
+}
+
+void getCrystal(Player* player, Map* map) {
+    player->crystals ++;
+    map->grid[player->y*map->width + player->x] = 'e';
 }
 
 void updatePlayer(Player* player) {

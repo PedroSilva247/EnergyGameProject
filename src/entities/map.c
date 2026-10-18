@@ -1,15 +1,24 @@
 #include <raylib.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "../../include/map.h"
 #include "../../include/config.h"
+#include "../../include/player.h"
 #include "../../include/mapElements.h"
 
 
-Map* createMap(int width, int height, char* grid) {
+Map* createMap(int width, int height, char* grid, int maxEnergy, int initialPlayerX, int initialPlayerY) {
 	Map* map = (Map*) malloc(sizeof(Map));
 	map->width = width;
 	map->height = height;
 	map->grid = grid;
+	map->maxEnergy = maxEnergy;
+	map->initialPlayerX = initialPlayerX;
+	map->initialPlayerY = initialPlayerY;
+
+	if(grid[initialPlayerY * width + initialPlayerX] != 'e') {
+		printf("Invalid map! The player doesn't spawn on a empty tile.");
+	}
 
 	return map;
 }
@@ -44,5 +53,13 @@ void DrawMap(Map* map) {
 		}
 		currentX = startMapX;
 		currentY += tile;
+	}
+}
+
+
+
+void updateMap(Map* map, Player* player) {
+	if(verifyPlayerTile(player, map) == 'c') {
+		getCrystal(player, map);
 	}
 }

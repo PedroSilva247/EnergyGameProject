@@ -1,17 +1,17 @@
-#include "map.h"
-
 #ifndef PLAYER
 #define PLAYER
+
+#include "map.h"
 
 typedef struct {
     int keyUp, keyDown, keyLeft, keyRight;
 } ControlKeys;
 
-typedef struct {
+typedef struct Player {
 	int x;
 	int y;
     int energy;
-    int crystal;                //Cristais do Player
+    int crystals;                //Cristais do Player
     float radius;                    
     ControlKeys* controlKeys;
 } Player;
@@ -30,5 +30,9 @@ void updatePlayer(Player* player);
 void movePlayer(char axis, int step, Map* map, Player* player);
 
 void verifyKeyboard(Player* player, Map* map);
+
+char verifyPlayerTile(Player* player, Map* map);
+
+void getCrystal(Player* player, Map* map);
 
 #endif
