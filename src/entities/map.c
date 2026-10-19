@@ -7,12 +7,11 @@
 #include "../../include/mapElements.h"
 
 
-Map* createMap(int width, int height, char* grid, int maxEnergy, int initialPlayerX, int initialPlayerY) {
+Map* createMap(int width, int height, char* grid, int initialPlayerX, int initialPlayerY) {
 	Map* map = (Map*) malloc(sizeof(Map));
 	map->width = width;
 	map->height = height;
 	map->grid = grid;
-	map->maxEnergy = maxEnergy;
 	map->initialPlayerX = initialPlayerX;
 	map->initialPlayerY = initialPlayerY;
 

@@ -5,14 +5,9 @@
 #include "../../include/gameplay_screen.h"
 #include "../../include/map.h"
 #include "../../include/player.h"
+#include "../../include/level.h"
 #define N 6
 #define MAX_MAP_SIZE 30
-
-
-
-
-
-
 
 
 int main() {
@@ -28,10 +23,13 @@ int main() {
 		{'#', 'e', 'e', 'e', 'r', 'e', 'e', 'e', 'f', '#'},
 		{'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'}
 	};
-	Map* map2 = createMap(10, 10, &newGrid[0][0], 10, 1, 1);
+	Map* map2 = createMap(10, 10, &newGrid[0][0], 1, 1);
 
-	Player* player1 = createPlayer(1, 1, 10, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
-	
+	Level* level1 = createLevel(map2, 10, 10);
+
+	Level* level2 = createLevel(map2, 8, 10);
+	//Player* player1 = createPlayer(1, 1, 10, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
+	GameplayScreenToDraw* gameplayScreenToDraw = playLevel(level1);
 
     InitWindow(1000, 800, "EnergyGame");
 
@@ -40,10 +38,8 @@ int main() {
 		BeginDrawing();
 
 			ClearBackground(RAYWHITE);
-
-			DrawGameplayScreen(map2, player1);
-
-			
+			//DrawGameplayScreen(map2, player1);
+			gameplayScreenToDraw->func(gameplayScreenToDraw->level, gameplayScreenToDraw->player);
 
 		EndDrawing();
     }
