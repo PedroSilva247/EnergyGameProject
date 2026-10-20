@@ -10,6 +10,8 @@
 #define MAX_MAP_SIZE 30
 
 
+
+
 int main() {
 	char newGrid[10][10] = {
 		{'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -25,16 +27,25 @@ int main() {
 	};
 	Map* map2 = createMap(10, 10, &newGrid[0][0], 1, 1);
 
-	Level* level1 = createLevel(map2, 10, 10);
+	Level* level1 = createLevel(map2, 20, 20);
 
 	Level* level2 = createLevel(map2, 8, 10);
 	//Player* player1 = createPlayer(1, 1, 10, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
 	GameplayScreenToDraw* gameplayScreenToDraw = playLevel(level1);
 
+	
+
     InitWindow(1000, 800, "EnergyGame");
+
+	float unitX;
+	float unitY;
 
     SetTargetFPS(120);
 	while(!WindowShouldClose()) {
+
+		unitX = GetWindowScaleDPI().x / 1000;
+		unitY = GetWindowScaleDPI().y / 1000;
+		
 		BeginDrawing();
 
 			ClearBackground(RAYWHITE);

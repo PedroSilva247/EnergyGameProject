@@ -4,6 +4,7 @@
 #include "../../include/level.h"
 #include "../../include/player.h"
 #include "../../include/config.h"
+#include "../../include/mapElements.h"
 #define N 6
 
 #define MAX_LEVEL_ENERGY 10
@@ -25,7 +26,7 @@ void DrawCrystalsCounter(Player* player) {
 void DrawGameplayScreen(Level* level, Player* player) {
 	verifyKeyboard(player, level->map);
 	DrawHeader(player, level);
-	updateMap(level->map, player);
+	updateMapElements(level, player);
 	DrawMap(level->map);
 	DrawPlayer(player);
 }

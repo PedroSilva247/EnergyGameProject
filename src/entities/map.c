@@ -57,8 +57,3 @@ void DrawMap(Map* map) {
 
 
 
-void updateMap(Map* map, Player* player) {
-	if(verifyPlayerTile(player, map) == 'c') {
-		getCrystal(player, map);
-	}
-}

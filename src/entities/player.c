@@ -3,6 +3,7 @@
 #include "../../include/player.h"
 #include "../../include/config.h"
 #include "../../include/map.h"
+#include "../../include/level.h"
 
 
 Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* controlKeys) {
@@ -97,6 +98,26 @@ char verifyPlayerTile(Player* player, Map* map) {
 void getCrystal(Player* player, Map* map) {
     player->crystals ++;
     map->grid[player->y*map->width + player->x] = 'e';
+}
+
+void hitTrap(Player* player, Map* map) {
+    player->energy -= trapDamage;
+    if(player->energy < 0) {
+        player->energy = 0;
+    }
+    map->grid[player->y*map->width + player->x] = 'e';
+}
+
+void getRecover(Player* player, Level* level) {
+    player->energy += recoverEnergy;
+    if(player->energy > level->maxEnergy) {
+        if(recoverHealsMoreThanMax) {
+            level->maxEnergy = player->energy;
+        } else {
+            player->energy = level->maxEnergy;
+        }
+    }
+    level->map->grid[player->y*level->map->width + player->x] = 'e';
 }
 
 void updatePlayer(Player* player) {

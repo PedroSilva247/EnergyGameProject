@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include "../../include/mapElements.h"
 #include "../../include/config.h"
+#include "../../include/map.h"
+#include "../../include/player.h"
+#include "../../include/level.h"
 
 
 
@@ -46,5 +49,15 @@ void DrawRecover(int x,int y) {
     );
 }
 
-
+void updateMapElements(Level* level, Player* player) {
+	if(verifyPlayerTile(player, level->map) == 'c') {
+		getCrystal(player, level->map);
+	}
+	if(verifyPlayerTile(player, level->map) == 't') {
+		hitTrap(player, level->map);
+	}
+    if(verifyPlayerTile(player, level->map) == 'r') {
+		getRecover(player, level);
+	}
+}
 

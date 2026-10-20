@@ -2,6 +2,9 @@
 #define PLAYER
 
 #include "map.h"
+#include <raylib.h>
+
+typedef struct Level Level;
 
 typedef struct {
     int keyUp, keyDown, keyLeft, keyRight;
@@ -34,5 +37,9 @@ void verifyKeyboard(Player* player, Map* map);
 char verifyPlayerTile(Player* player, Map* map);
 
 void getCrystal(Player* player, Map* map);
+
+void hitTrap(Player* player, Map* map);
+
+void getRecover(Player* player, Level* level);
 
 #endif
