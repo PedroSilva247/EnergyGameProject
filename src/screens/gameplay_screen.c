@@ -27,6 +27,7 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	verifyKeyboard(player, level->map);
 	DrawHeader(player, level);
 	updateMapElements(level, player);
+	updatePlayer(player);
 	DrawMap(level->map);
 	DrawPlayer(player);
 }

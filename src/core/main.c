@@ -49,7 +49,7 @@ int main() {
 		BeginDrawing();
 
 			ClearBackground(RAYWHITE);
-			//DrawGameplayScreen(map2, player1);
+	
 			gameplayScreenToDraw->func(gameplayScreenToDraw->level, gameplayScreenToDraw->player);
 
 		EndDrawing();

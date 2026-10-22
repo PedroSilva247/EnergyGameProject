@@ -8,12 +8,18 @@
 
 Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* controlKeys) {
     Player* player = (Player*) malloc(sizeof(Player));
+    Vector2* positionPixel = (Vector2*) malloc(sizeof(Vector2));
     player->x = x;
     player->y = y;
     player->energy = energy;
     player->crystals = 0;
     player->radius = radius;
     player->controlKeys = controlKeys;
+
+    positionPixel->x = startMapX + (x * tile) + (tile / 2);
+    positionPixel->y = startMapY + (y * tile) + (tile / 2);
+
+    player->positionPixel = positionPixel;
 
     return player;
 }
@@ -30,8 +36,8 @@ ControlKeys* createControlKeys(int keyUp, int keyLeft, int keyDown, int keyRight
 
 void DrawPlayer(Player* player) {
     DrawCircle(
-        startMapX + (player->x * tile) + (tile / 2),
-        startMapY + (player->y * tile) + (tile / 2),
+        player->positionPixel->x,
+        player->positionPixel->y,
         player->radius,
         RED
     );
@@ -121,5 +127,6 @@ void getRecover(Player* player, Level* level) {
 }
 
 void updatePlayer(Player* player) {
-    
+    player->positionPixel->x = startMapX + (player->x * tile) + (tile / 2);
+    player->positionPixel->y = startMapY + (player->y * tile) + (tile / 2);
 }
