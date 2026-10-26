@@ -15,6 +15,8 @@ Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* contro
     player->crystals = 0;
     player->radius = radius;
     player->controlKeys = controlKeys;
+    player->sprite = LoadTexture("resources/player.png"); //faz o load do sprite
+    SetTextureFilter(player->sprite, TEXTURE_FILTER_POINT); //adapta para pixel art
 
     positionPixel->x = startMapX + (x * tile) + (tile / 2);
     positionPixel->y = startMapY + (y * tile) + (tile / 2);
@@ -35,12 +37,13 @@ ControlKeys* createControlKeys(int keyUp, int keyLeft, int keyDown, int keyRight
 }
 
 void DrawPlayer(Player* player) {
-    DrawCircle(
-        player->positionPixel->x,
-        player->positionPixel->y,
-        player->radius,
-        RED
-    );
+    Rectangle source = { 0, 0, (float)player->sprite.width, (float)player->sprite.height };
+    Rectangle dest = {
+        player->positionPixel->x - tile / 2.0f,
+        player->positionPixel->y - tile / 2.0f,
+        (float)tile, (float)tile
+    };
+    DrawTexturePro(player->sprite, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE);
 }
 
 

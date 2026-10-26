@@ -18,6 +18,7 @@ typedef struct Player {
     float radius;
     ControlKeys* controlKeys;
     Vector2* positionPixel;
+    Texture2D sprite; //Load dos sprites do player
 } Player;
 
 

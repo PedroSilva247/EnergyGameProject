@@ -13,6 +13,8 @@
 
 
 int main() {
+    InitWindow(1000, 800, "EnergyGame");
+
 	char newGrid[10][10] = {
 		{'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
 		{'#', 'e', 'e', 'e', 'e', 'e', '#', 'e', 'e', '#'},
@@ -34,8 +36,6 @@ int main() {
 	GameplayScreenToDraw* gameplayScreenToDraw = playLevel(level1);
 
 	
-
-    InitWindow(1000, 800, "EnergyGame");
 
 	float unitX;
 	float unitY;
