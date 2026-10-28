@@ -14,6 +14,14 @@ void DrawFinishLine(int x, int y);
 
 void DrawTrap(int x, int y);
 
+void LoadCrystalTexture(void);
+
+void UnloadCrystalTexture(void);
+
+void LoadRecoverTexture(void);
+
+void UnloadRecoverTexture(void);
+
 void DrawRecover(int x, int y);
 
 void updateMapElements(Level* level, Player* player);
