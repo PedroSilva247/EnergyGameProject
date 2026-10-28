@@ -18,6 +18,5 @@ void DrawRecover(int x, int y);
 
 void updateMapElements(Level* level, Player* player);
 
-void DrawPlayerPortrait()
 
 #endif

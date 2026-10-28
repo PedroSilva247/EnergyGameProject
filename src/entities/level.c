@@ -7,7 +7,7 @@
 
 GameplayScreenToDraw* playLevel(Level* level) {
     Player* player = createPlayer(level->map->initialPlayerX, level->map->initialPlayerY, level->initialEnergy, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
-    Level* levelClone = createLevel(level->map, level->initialEnergy, level->maxEnergy);
+    Level* levelClone = createLevel(level->map, level->initialEnergy, level->maxEnergy, level->round);
     GameplayScreenToDraw* gameplayScreenToDraw = (GameplayScreenToDraw*) malloc(sizeof(GameplayScreenToDraw));
     gameplayScreenToDraw->func = DrawGameplayScreen;
     gameplayScreenToDraw->level = levelClone;
@@ -16,11 +16,12 @@ GameplayScreenToDraw* playLevel(Level* level) {
     return gameplayScreenToDraw;
 }
 
-Level* createLevel(Map* map, int initialEnergy, int maxEnergy) {
+Level* createLevel(Map* map, int initialEnergy, int maxEnergy,int round) {
     Level* level = (Level*) malloc(sizeof(Level));
 	level->map = map;
     level->initialEnergy = initialEnergy;
     level->maxEnergy = maxEnergy;
+    level->round = 0;
 
 	return level;
 }

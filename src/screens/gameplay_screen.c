@@ -13,6 +13,7 @@
 void DrawHeader(Player* player, Level* level) {
 	DrawEnergy(player, level);
 	DrawCrystalsCounter(player);
+	DrawRounds(level);
 }
 void DrawEnergy(Player* player, Level* level) {
 	DrawRectangleLinesEx((Rectangle) {10, 10, 5*tile, 0.4*tile}, 5.0F, BLACK);
@@ -23,12 +24,25 @@ void DrawCrystalsCounter(Player* player) {
 	DrawText(TextFormat("CRISTAIS: %d", player->crystals), 10, tile, 20, BLACK);
 }
 
+void DrawRounds(Level * level){
+	DrawText(TextFormat("Turnos: %d", level ->round), 10, 1.5 * tile, 20, BLACK);
+}
+
 void DrawGameplayScreen(Level* level, Player* player) {
+	int oldX = player->x;
+	int oldY = player->y;
+
 	verifyKeyboard(player, level->map);
+
+	if (player->x != oldX || player->y != oldY)
+	{
+		level->round++;	
+	}
 	DrawHeader(player, level);
 	updateMapElements(level, player);
 	updatePlayer(player);
 	DrawMap(level->map);
 	DrawPlayer(player);
 }
+
 

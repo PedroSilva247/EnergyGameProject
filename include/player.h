@@ -44,4 +44,6 @@ void hitTrap(Player* player, Map* map);
 
 void getRecover(Player* player, Level* level);
 
+
+
 #endif

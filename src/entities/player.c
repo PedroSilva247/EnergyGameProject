@@ -4,6 +4,7 @@
 #include "../../include/config.h"
 #include "../../include/map.h"
 #include "../../include/level.h"
+#include "../../include/gameplay_screen.h"
 
 
 Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* controlKeys) {
