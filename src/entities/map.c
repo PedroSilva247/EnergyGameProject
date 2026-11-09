@@ -7,6 +7,10 @@
 #include "../../include/mapElements.h"
 
 
+
+
+
+
 Map* createMap(int width, int height, char* grid, int initialPlayerX, int initialPlayerY) {
 	Map* map = (Map*) malloc(sizeof(Map));
 	map->width = width;
@@ -25,12 +29,18 @@ Map* createMap(int width, int height, char* grid, int initialPlayerX, int initia
 
 
 
-void DrawMap(Map* map) {
+void DrawMap(Map* map, bool isFinishLineOpened) {
 	
 	int currentX = startMapX;
 	int currentY = startMapY;
+	
+
 	for (int i = 0; i < map->height; i++) {
 		for (int j = 0; j < map->width; j++) {
+			if(map->grid[i * map->width + j] != '#') {
+				DrawFloor(currentX, currentY);
+			}
+			
 			switch (map->grid[i * map->width + j]) {
 				case '#':
 					DrawRectangle(currentX, currentY, tile, tile, BLUE);
@@ -39,7 +49,7 @@ void DrawMap(Map* map) {
 					DrawCrystal(currentX, currentY);
 					break;
 				case 'f':
-					DrawFinishLine(currentX, currentY);
+					DrawFinishLine(currentX, currentY, isFinishLineOpened);
 					break;
 				case 't':
 					DrawTrap(currentX, currentY);

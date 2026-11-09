@@ -12,7 +12,7 @@
 
 void DrawHeader(Player* player, Level* level) {
 	DrawEnergy(player, level);
-	DrawCrystalsCounter(player);
+	DrawCrystalsCounter(player, level);
 	DrawRounds(level);
 }
 void DrawEnergy(Player* player, Level* level) {
@@ -20,8 +20,8 @@ void DrawEnergy(Player* player, Level* level) {
 	DrawRectangle(10+5, 10+5, (5*tile - 5.0 * 2) * player->energy / level->maxEnergy, 0.4*tile - 5 - 5, YELLOW);
 	DrawText(TextFormat("ENERGIA: %d", player->energy), 30 + 5*tile, 10, 20, BLACK);
 }
-void DrawCrystalsCounter(Player* player) {
-	DrawText(TextFormat("CRISTAIS: %d", player->crystals), 10, tile, 20, BLACK);
+void DrawCrystalsCounter(Player* player, Level* level) {
+	DrawText(TextFormat("CRISTAIS: %d/%d", player->crystals, level->minCrystals), 10, tile, 20, BLACK);
 }
 
 void DrawRounds(Level * level){
@@ -31,6 +31,7 @@ void DrawRounds(Level * level){
 void DrawGameplayScreen(Level* level, Player* player) {
 	int oldX = player->x;
 	int oldY = player->y;
+	bool isFinishLineOpened = false;
 
 	verifyKeyboard(player, level->map);
 
@@ -39,9 +40,9 @@ void DrawGameplayScreen(Level* level, Player* player) {
 		level->round++;	
 	}
 	DrawHeader(player, level);
-	updateMapElements(level, player);
+	updateMapElements(level, player, &isFinishLineOpened);
 	updatePlayer(player);
-	DrawMap(level->map);
+	DrawMap(level->map, isFinishLineOpened, level->textureDirectory);
 	DrawPlayer(player);
 }
 

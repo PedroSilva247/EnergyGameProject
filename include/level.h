@@ -11,10 +11,12 @@ typedef struct Level {
     int initialEnergy;
     int maxEnergy;
     int round;
+    int minCrystals;
+    int numLevel;
 } Level;
 
 GameplayScreenToDraw* playLevel(Level* level);
 
-Level* createLevel(Map* map, int initialEnergy, int maxEnergy, int round);
+Level* createLevel(Map* map, int initialEnergy, int maxEnergy, int minCrystals, int numLevel);
 
 #endif

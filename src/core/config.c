@@ -2,7 +2,7 @@
 
 int startMapX = 100;
 int startMapY = 100;
-int tile = 50;
+int tile = 30;
 int trapDamage = 3;
 int recoverEnergy = 5;
 int recoverHealsMoreThanMax = 1;
