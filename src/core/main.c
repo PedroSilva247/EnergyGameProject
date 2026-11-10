@@ -16,11 +16,15 @@
 int main() {
     InitWindow(1920, 1080, "EnergyGame");
 
-	LoadCrystalTexture();
-	LoadRecoverTexture();
-	LoadFloorTexture();
-	LoadFinishClosedTexture();
-	LoadFinishOpenedTexture();
+	char folder[30] = "forestTextures";
+
+	LoadCrystalTexture(folder);
+	LoadRecoverTexture(folder);
+	LoadFloorTexture(folder);
+	LoadFinishClosedTexture(folder);
+	LoadFinishOpenedTexture(folder);
+	LoadWallTexture(folder);
+	LoadTrapTexture(folder);
 
 
 	char grid1[10][10] = {
@@ -64,13 +68,13 @@ int main() {
 
 	Map* map2 = createMap(20, 20, &grid2[0][0], 1, 1);
 
-	Level* level1 = createLevel(map1, 20, 20, 3, 1, "forestTextures");
+	Level* level1 = createLevel(map1, 20, 20, 3, 1);
 
-	Level* level2 = createLevel(map2, 101, 101, 4, 2, "forestTextures");
+	Level* level2 = createLevel(map2, 101, 101, 4, 2);
 	//Player* player1 = createPlayer(1, 1, 10, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
 	GameplayScreenToDraw* gameplayScreenToDraw = playLevel(level1);
 
-	gameplayScreenToDraw = playLevel(level2);
+	// gameplayScreenToDraw = playLevel(level2);
 
 	
 
@@ -96,6 +100,8 @@ int main() {
 	UnloadFloorTexture();
 	UnloadFinishClosedTexture();
 	UnloadFinishOpenedTexture();
+	UnloadWallTexture();
+	UnloadTrapTexture();
 	CloseWindow();
     return 0;
 }

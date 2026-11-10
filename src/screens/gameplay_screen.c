@@ -42,7 +42,7 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	DrawHeader(player, level);
 	updateMapElements(level, player, &isFinishLineOpened);
 	updatePlayer(player);
-	DrawMap(level->map, isFinishLineOpened, level->textureDirectory);
+	DrawMap(level->map, isFinishLineOpened);
 	DrawPlayer(player);
 }
 

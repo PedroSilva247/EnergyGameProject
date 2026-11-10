@@ -43,7 +43,7 @@ void DrawMap(Map* map, bool isFinishLineOpened) {
 			
 			switch (map->grid[i * map->width + j]) {
 				case '#':
-					DrawRectangle(currentX, currentY, tile, tile, BLUE);
+					DrawWall(currentX, currentY);
 					break;
 				case 'c':
 					DrawCrystal(currentX, currentY);
