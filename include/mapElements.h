@@ -9,46 +9,27 @@ typedef struct Player Player;
 typedef struct Level Level;
 
 void DrawCrystal(int x, int y);
-
-void LoadFinishClosedTexture(char folder[30]);
-
-void LoadFinishOpenedTexture(char folder[30]);
-
+void DrawWall(int currentX, int currentY);
 void DrawFinishLine(int x, int y, bool isFinishLineOpened);
-
-void UnloadFinishOpenedTexture(void);
-
-void UnloadFinishClosedTexture(void);
-
+void DrawFloor(int currentX, int currentY);
 void DrawTrap(int x, int y);
-
-void LoadCrystalTexture(char folder[30]);
-
-void UnloadCrystalTexture(void);
-
-void LoadRecoverTexture(char folder[30]);
-
-void UnloadRecoverTexture(void);
-
+void DrawTrap(int currentX, int currentY);
 void DrawRecover(int x, int y);
 
-void updateMapElements(Level* level, Player* player, bool* isFinishLineOpened);
+void LoadTexturePack(char folder[30]);
+void UnloadTextures(void);
 
-void DrawFloor(int currentX, int currentY);
-
-void LoadFloorTexture(char folder[30]);
+void UnloadFinishOpenedTexture(void);
+void UnloadFinishClosedTexture(void);
+void UnloadCrystalTexture(void);
+void UnloadRecoverTexture(void);
+void UnloadTrapTexture(void);
 void UnloadFloorTexture(void);
-
-void DrawWall(int currentX, int currentY);
-
-void LoadWallTexture(char folder[30]);
-
 void UnloadWallTexture(void);
 
-void DrawTrap(int currentX, int currentY);
 
-void LoadTrapTexture(char folder[30]);
 
-void UnloadTrapTexture(void);
 
+
+void updateMapElements(Level* level, Player* player, bool* isFinishLineOpened);
 #endif

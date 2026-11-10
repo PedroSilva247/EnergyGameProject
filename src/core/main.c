@@ -18,14 +18,7 @@ int main() {
 
 	char folder[30] = "forestTextures";
 
-	LoadCrystalTexture(folder);
-	LoadRecoverTexture(folder);
-	LoadFloorTexture(folder);
-	LoadFinishClosedTexture(folder);
-	LoadFinishOpenedTexture(folder);
-	LoadWallTexture(folder);
-	LoadTrapTexture(folder);
-
+	LoadTexturePack(folder);
 
 	char grid1[10][10] = {
 		{'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -95,13 +88,9 @@ int main() {
 
 		EndDrawing();
     }
-	UnloadCrystalTexture();
-	UnloadRecoverTexture();
-	UnloadFloorTexture();
-	UnloadFinishClosedTexture();
-	UnloadFinishOpenedTexture();
-	UnloadWallTexture();
-	UnloadTrapTexture();
+	
+	UnloadTextures();
+
 	CloseWindow();
     return 0;
 }

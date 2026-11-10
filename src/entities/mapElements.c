@@ -26,9 +26,46 @@ void LoadCrystalTexture(char folder[30]){
     SetTextureFilter(crystalTex, TEXTURE_FILTER_POINT); //adapta pra pixel art
 }
 
-void UnloadCrystalTexture(void)
-{
+void LoadTexturePack(char folder[30]) {
+    char path[256];
+
+    snprintf(path, sizeof path, "resources/%s/crystal.png", folder);
+    crystalTex = LoadTexture(path);
+    SetTextureFilter(crystalTex, TEXTURE_FILTER_POINT);
+
+    snprintf(path, sizeof path, "resources/%s/recover.png", folder);
+    recoverTex = LoadTexture(path);
+    SetTextureFilter(recoverTex, TEXTURE_FILTER_POINT); 
+
+    snprintf(path, sizeof path, "resources/%s/exit_open.png", folder);
+    finishOpenedTex = LoadTexture(path);
+    SetTextureFilter(finishOpenedTex, TEXTURE_FILTER_POINT);
+
+    snprintf(path, sizeof path, "resources/%s/exit_closed.png", folder);
+    finishClosedTex = LoadTexture(path);
+    SetTextureFilter(finishClosedTex, TEXTURE_FILTER_POINT);
+
+    snprintf(path, sizeof path, "resources/%s/floor.png", folder);
+    floorTex = LoadTexture(path);
+    SetTextureFilter(floorTex, TEXTURE_FILTER_POINT);
+
+    snprintf(path, sizeof path, "resources/%s/wall.png", folder);
+    wallTex = LoadTexture(path);
+    SetTextureFilter(wallTex, TEXTURE_FILTER_POINT);
+
+    snprintf(path, sizeof path, "resources/%s/trap.png", folder);
+    trapTex = LoadTexture(path);
+    SetTextureFilter(trapTex, TEXTURE_FILTER_POINT);
+}
+
+void UnloadTextures(void) {
     UnloadTexture(crystalTex);
+    UnloadTexture(recoverTex);
+    UnloadTexture(finishOpenedTex);
+    UnloadTexture(finishClosedTex);
+    UnloadTexture(floorTex);
+    UnloadTexture(wallTex);
+    UnloadTexture(trapTex);
 }
 
 void DrawCrystal(int x, int y) {
@@ -38,16 +75,6 @@ void DrawCrystal(int x, int y) {
     DrawTexturePro(crystalTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
 
-void LoadRecoverTexture(char folder[30]){
-    char path[256];
-    snprintf(path, sizeof path, "resources/%s/recover.png", folder);
-    recoverTex = LoadTexture(path);
-    SetTextureFilter(recoverTex, TEXTURE_FILTER_POINT); 
-}
-
-void UnloadRecoverTexture(void){
-    UnloadTexture(recoverTex);
-}
 void DrawRecover(int x, int y) {
     Rectangle source = { 0, 0, (float)recoverTex.width, (float)recoverTex.height };
     Rectangle dest   = { (float)x, (float)y, (float)tile, (float)tile };
@@ -55,22 +82,6 @@ void DrawRecover(int x, int y) {
 }
 
 
-
-void LoadFinishOpenedTexture(char folder[30])
-{
-    char path[256];
-    snprintf(path, sizeof path, "resources/%s/exit_open.png", folder);
-    finishOpenedTex = LoadTexture(path);
-    SetTextureFilter(finishOpenedTex, TEXTURE_FILTER_POINT); //adapta pra pixel art
-}
-
-void LoadFinishClosedTexture(char folder[30])
-{
-    char path[256];
-    snprintf(path, sizeof path, "resources/%s/exit_closed.png", folder);
-    finishClosedTex = LoadTexture(path);
-    SetTextureFilter(finishClosedTex, TEXTURE_FILTER_POINT); //adapta pra pixel art
-}
 
 void DrawFinishLine(int x, int y, bool isFinishLineOpened) {
     Texture2D finishLineTex;
@@ -86,39 +97,11 @@ void DrawFinishLine(int x, int y, bool isFinishLineOpened) {
         
 }
 
-void UnloadFinishOpenedTexture(void)
-{
-    UnloadTexture(finishOpenedTex);
-}
-
-void UnloadFinishClosedTexture(void)
-{
-    UnloadTexture(finishClosedTex);
-}
-
-// ----------- FLOOR ----------------
-
-
 void DrawFloor(int currentX, int currentY) {
     Rectangle source = { 0, 0, (float)floorTex.width, (float)floorTex.height }; //altura do png e largura
     Rectangle dest   = { (float)currentX, (float)currentY, (float)tile, (float)tile }; //preencher o tile
     DrawTexturePro(floorTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
-
-void LoadFloorTexture(char folder[30]){
-    char path[256];
-    snprintf(path, sizeof path, "resources/%s/floor.png", folder);
-    floorTex = LoadTexture(path);
-    SetTextureFilter(floorTex, TEXTURE_FILTER_POINT); //adapta pra pixel art
-}
-
-void UnloadFloorTexture(void){
-    UnloadTexture(floorTex);
-}
-
-
-// ----------- WALL ----------------
-
 
 void DrawWall(int currentX, int currentY) {
     Rectangle source = { 0, 0, (float)wallTex.width, (float)wallTex.height }; //altura do png e largura
@@ -126,38 +109,11 @@ void DrawWall(int currentX, int currentY) {
     DrawTexturePro(wallTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
 
-void LoadWallTexture(char folder[30]){
-    char path[256];
-    snprintf(path, sizeof path, "resources/%s/wall.png", folder);
-    wallTex = LoadTexture(path);
-    SetTextureFilter(wallTex, TEXTURE_FILTER_POINT); //adapta pra pixel art
-}
-
-void UnloadWallTexture(void){
-    UnloadTexture(wallTex);
-}
-
-// ----------- TRAP ----------------
-
-
 void DrawTrap(int currentX, int currentY) {
     Rectangle source = { 0, 0, (float)trapTex.width, (float)trapTex.height }; //altura do png e largura
     Rectangle dest   = { (float)currentX, (float)currentY, (float)tile, (float)tile }; //preencher o tile
     DrawTexturePro(trapTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
-
-void LoadTrapTexture(char folder[30]){
-    char path[256];
-    snprintf(path, sizeof path, "resources/%s/trap.png", folder);
-    trapTex = LoadTexture(path);
-    SetTextureFilter(trapTex, TEXTURE_FILTER_POINT); //adapta pra pixel art
-}
-
-void UnloadTrapTexture(void){
-    UnloadTexture(trapTex);
-}
-
-
 
 void updateMapElements(Level* level, Player* player, bool* isFinishLineOpened) {
     if(player->crystals >= level->minCrystals) {
