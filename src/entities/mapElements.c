@@ -18,14 +18,6 @@ static Texture2D floorTex;
 static Texture2D wallTex;
 static Texture2D trapTex;
 
-
-void LoadCrystalTexture(char folder[30]){
-    char path[256];
-    snprintf(path, sizeof path, "resources/%s/crystal.png", folder);
-    crystalTex = LoadTexture(path);
-    SetTextureFilter(crystalTex, TEXTURE_FILTER_POINT); //adapta pra pixel art
-}
-
 void LoadTexturePack(char folder[30]) {
     char path[256];
 
