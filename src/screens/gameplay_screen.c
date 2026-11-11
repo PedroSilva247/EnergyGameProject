@@ -33,7 +33,7 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	int oldY = player->y;
 	bool isFinishLineOpened = false;
 
-	verifyKeyboard(player, level->map);
+	verifyKeyboardGameplay(player, level->map);
 
 	if (player->x != oldX || player->y != oldY)
 	{

@@ -1,5 +1,5 @@
-#ifndef MAPELEMENTS
-#define MAPELEMENTS
+#ifndef MAP_ELEMENTS
+#define MAP_ELEMENTS
 
 #include <raylib.h>
 #include <stdlib.h>

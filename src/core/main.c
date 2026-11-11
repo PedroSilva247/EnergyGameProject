@@ -7,6 +7,10 @@
 #include "../../include/player.h"
 #include "../../include/level.h"
 #include "../../include/mapElements.h"
+#include "../../include/screen.h"
+#include "../../include/menu_screen.h"
+#include "../../include/config.h"
+
 #define N 6
 #define MAX_MAP_SIZE 30
 
@@ -15,6 +19,8 @@
 
 int main() {
     InitWindow(1920, 1080, "EnergyGame");
+
+	currentScreen = SCREEN_MENU;
 
 	char folder[30] = "forestTextures";
 
@@ -64,13 +70,23 @@ int main() {
 	Level* level1 = createLevel(map1, 20, 20, 3, 1);
 
 	Level* level2 = createLevel(map2, 101, 101, 4, 2);
-	//Player* player1 = createPlayer(1, 1, 10, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
-	GameplayScreenToDraw* gameplayScreenToDraw = playLevel(level1);
 
-	// gameplayScreenToDraw = playLevel(level2);
+	Level** levels = (Level**) malloc(sizeof(Level*)*100);
+	int countLevels = 0;
+	
+	levels[countLevels] = level1;
+	countLevels++;
+
+	levels[countLevels] = level2;
+	countLevels++;
+
+	//Player* player1 = createPlayer(1, 1, 10, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
+	//GameplayScreenToDraw* gameplayScreenToDraw = playLevel(level1);
+
+	//gameplayScreenToDraw = playLevel(level2);
 
 	
-
+ 
 	float unitX;
 	float unitY;
 
@@ -84,11 +100,19 @@ int main() {
 
 			ClearBackground(RAYWHITE);
 	
-			gameplayScreenToDraw->func(gameplayScreenToDraw->level, gameplayScreenToDraw->player);
+			switch(currentScreen) {
+				case SCREEN_MENU:
+					DrawMenuScreen(levels, countLevels);
+					break;
+				case SCREEN_GAMEPLAY:
+					gameplayScreenToDraw->func(gameplayScreenToDraw->level, gameplayScreenToDraw->player);
+					break;
+			}
+			
 
 		EndDrawing();
     }
-	
+
 	UnloadTextures();
 
 	CloseWindow();

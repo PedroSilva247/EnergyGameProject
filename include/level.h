@@ -15,6 +15,9 @@ typedef struct Level {
     int numLevel;
 } Level;
 
+
+
+
 GameplayScreenToDraw* playLevel(Level* level);
 
 Level* createLevel(Map* map, int initialEnergy, int maxEnergy, int minCrystals, int numLevel);

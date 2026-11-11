@@ -86,7 +86,7 @@ void movePlayer(char axis, int step, Map* map, Player* player) {
     
 }
 
-void verifyKeyboard(Player* player, Map* map) {
+void verifyKeyboardGameplay(Player* player, Map* map) {
     if (IsKeyPressed(player->controlKeys->keyDown)){
         movePlayer('y', 1, map, player);
     }
