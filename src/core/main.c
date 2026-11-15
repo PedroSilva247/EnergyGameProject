@@ -18,7 +18,7 @@
 
 
 int main() {
-    InitWindow(1920, 1080, "EnergyGame");
+    InitWindow(1000, 800, "EnergyGame");
 
 	currentScreen = SCREEN_MENU;
 
@@ -106,6 +106,9 @@ int main() {
 					break;
 				case SCREEN_GAMEPLAY:
 					gameplayScreenToDraw->func(gameplayScreenToDraw->level, gameplayScreenToDraw->player);
+					if (restartRequested){
+						restartRequested = 0;
+					}
 					break;
 			}
 			

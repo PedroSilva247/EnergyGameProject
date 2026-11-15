@@ -8,6 +8,7 @@
 #define N 6
 
 #define MAX_LEVEL_ENERGY 10
+static int confirmingrestart = 0;
 
 
 void DrawHeader(Player* player, Level* level) {
@@ -28,12 +29,34 @@ void DrawRounds(Level * level){
 	DrawText(TextFormat("Turnos: %d", level ->round), 10, 1.5 * tile, 20, BLACK);
 }
 
+void DrawRestart(void) {
+	DrawText("Reiniciar [R]", 10, GetScreenHeight() - 30, 20, BLACK);
+}
+
+void verifyKeyboardScreen(void) {
+	if (IsKeyPressed(KEY_R)) {
+		confirmingrestart = 1;
+	}
+}
+
+void DrawRestartScreen(void){
+	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(GRAY, 0.6f));
+	DrawRectangle(GetScreenWidth()/2 - (2 * tile), GetScreenWidth()/2 - (2 * tile),GetScreenWidth()/2 + (2 * tile), GetScreenWidth()/2 + (2 * tile), Fade(GRAY, 0.6f) );
+
+}
+
 void DrawGameplayScreen(Level* level, Player* player) {
 	int oldX = player->x;
 	int oldY = player->y;
 	bool isFinishLineOpened = false;
 
-	verifyKeyboardGameplay(player, level->map);
+	if (!confirmingrestart){
+		verifyKeyboardGameplay(player, level->map);
+		verifyKeyboardScreen();
+	}
+
+
+
 
 	if (player->x != oldX || player->y != oldY)
 	{
@@ -44,6 +67,18 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	updatePlayer(player);
 	DrawMap(level->map, isFinishLineOpened);
 	DrawPlayer(player);
+	DrawRestart();
+
+	if (confirmingrestart){
+		DrawRestartScreen();
+		if (IsKeyPressed(KEY_S)){
+			restartRequested = 1;
+			confirmingrestart = 0;
+		}
+		if (IsKeyPressed(KEY_N)){
+			confirmingrestart = 0;
+		}
+	}
 }
 
 

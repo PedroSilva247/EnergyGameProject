@@ -7,6 +7,7 @@ int tile = 50;
 int trapDamage = 3;
 int recoverEnergy = 5;
 int recoverHealsMoreThanMax = 1;
+int restartRequested = 0;
 Screen currentScreen = SCREEN_MENU;
 GameplayScreenToDraw* gameplayScreenToDraw;
 

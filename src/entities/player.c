@@ -98,7 +98,7 @@ void verifyKeyboardGameplay(Player* player, Map* map) {
     }
     if (IsKeyPressed(player->controlKeys->keyLeft)){
         movePlayer('x', -1, map, player);
-    }
+    }  
 }
 
 char verifyPlayerTile(Player* player, Map* map) {

@@ -16,5 +16,6 @@ void DrawHeader(Player* player, Level* level);
 void DrawEnergy(Player* player, Level* level);
 void DrawCrystalsCounter(Player* player, Level* level);
 void DrawRounds(Level* level);
+void DrawRestartHint(void);
 
 #endif
