@@ -39,10 +39,21 @@ void verifyKeyboardScreen(void) {
 	}
 }
 
-void DrawRestartScreen(void){
-	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(GRAY, 0.6f));
-	DrawRectangle(GetScreenWidth()/2 - (2 * tile), GetScreenWidth()/2 - (2 * tile),GetScreenWidth()/2 + (2 * tile), GetScreenWidth()/2 + (2 * tile), Fade(GRAY, 0.6f) );
+void DrawRestartScreen(void) {
+	int cx = GetScreenWidth() / 2;
+	int cy = GetScreenHeight() / 2;
 
+	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(GRAY, 0.6f));                   // fundo translucido
+	DrawRectangle(cx - 4*tile, cy - 2*tile, 8*tile, 4*tile, RAYWHITE);                            // caixa
+	DrawRectangleLinesEx((Rectangle) {cx - 4*tile, cy - 2*tile, 8*tile, 4*tile}, 5.0f, BLACK);  
+	DrawRectangle(cx - 7*tile/2, cy + tile/2, 3*tile, tile, LIGHTGRAY);                           // botao Sim
+	DrawRectangleLinesEx((Rectangle) {cx - 7*tile/2, cy + tile/2, 3*tile, tile}, 5.0f, BLACK);    
+	DrawRectangle(cx + tile/2, cy + tile/2, 3*tile, tile, LIGHTGRAY);                             // botao Nao
+	DrawRectangleLinesEx((Rectangle) {cx + tile/2, cy + tile/2, 3*tile, tile}, 5.0f, BLACK);      
+
+	DrawText("Reiniciar a fase?", cx - MeasureText("Reiniciar a fase?", 30) / 2, cy - 3*tile/2, 30, BLACK);
+	DrawText("Sim [S]", cx - 2*tile - MeasureText("Sim [S]", 20) / 2, cy + tile/2 + (tile - 20) / 2, 20, BLACK);
+	DrawText("Nao [N]", cx + 2*tile - MeasureText("Nao [N]", 20) / 2, cy + tile/2 + (tile - 20) / 2, 20, BLACK);
 }
 
 void DrawGameplayScreen(Level* level, Player* player) {
