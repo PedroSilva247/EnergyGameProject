@@ -2,6 +2,9 @@
 #include "../../include/screen.h"
 #include <raylib.h>
 
+int windowWidth = 1000;
+int windowHeight = 800;
+
 int startMapX = 100;
 int startMapY = 100;
 int tile = 50;

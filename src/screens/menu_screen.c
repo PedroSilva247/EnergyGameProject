@@ -6,26 +6,13 @@
 #include "../../include/level.h"
 #include "../../include/config.h"
 #include "../../include/screen.h"
+#include "../../include/ui.h"
 
 #define NUMBER_LEVEL_SIZE 36
 
-static Texture2D levelButtonFrameTex;
-static Texture2D levelButtonFrameHoverTex;
+
+
 int levelHover = 0;
-
-void LoadUITexturePack() {
-    levelButtonFrameTex = LoadTexture("resources/uiTextures/level_button_frame.png");
-    SetTextureFilter(levelButtonFrameTex, TEXTURE_FILTER_POINT);
-
-    levelButtonFrameHoverTex = LoadTexture("resources/uiTextures/level_button_frame_hover.png");
-    SetTextureFilter(levelButtonFrameTex, TEXTURE_FILTER_POINT);
-}
-
-void UnloadUITextures(void) {
-    UnloadTexture(levelButtonFrameTex);
-    UnloadTexture(levelButtonFrameHoverTex);
-}
-
 
 void DrawLevelButtonFrame(Rectangle* rec, bool hover) {
     Texture2D frameTex;

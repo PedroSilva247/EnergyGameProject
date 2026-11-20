@@ -9,6 +9,9 @@
 #define TEXT_SHADOW_COLOR (Color) {46, 28, 22, 255}
 #define TEXT_COLOR_HOVER (Color) {255, 224, 104, 255}
 
+extern int windowWidth;
+extern int windowHeight;
+
 extern float unitY;
 extern float unitX;
 extern int trapDamage;

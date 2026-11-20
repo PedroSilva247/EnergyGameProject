@@ -9,24 +9,30 @@
 #include "../../include/mapElements.h"
 #include "../../include/screen.h"
 #include "../../include/menu_screen.h"
+#include "../../include/start_screen.h"
 #include "../../include/config.h"
+#include "../../include/ui.h"
 
 #define N 6
 #define MAX_MAP_SIZE 30
 
 
 
-
 int main() {
-    InitWindow(1000, 800, "EnergyGame");
+    InitWindow(windowWidth, windowHeight, "EnergyGame");
 
-	currentScreen = SCREEN_MENU;
-
+	
+	currentScreen = SCREEN_START;
+	
 	char folder[30] = "forestTextures";
-
+	
 	LoadMapTexturePack(folder);
 	LoadUITexturePack();
-
+	
+	Button* startButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "JOGAR");
+	startScreenButtons[countStartScreenButtons] = startButton;
+	countStartScreenButtons++;
+	
 	fontDefault = LoadFontEx("resources/fonts/font_pixel.ttf", 32, 0, 0);
 
 
@@ -105,6 +111,9 @@ int main() {
 			ClearBackground(RAYWHITE);
 	
 			switch(currentScreen) {
+				case SCREEN_START:
+					DrawStartScreen();
+					break;
 				case SCREEN_MENU:
 					DrawMenuScreen(levels, countLevels);
 					break;
