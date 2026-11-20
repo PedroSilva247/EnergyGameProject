@@ -10,12 +10,16 @@ typedef struct LevelSquare {
     Rectangle* rec;
 } LevelSquare;
 
-
+void DrawLevelButtonFrame(Rectangle* rec, bool hover);
 void DrawLevelSquare(LevelSquare* levelSquare);
 void DrawLevelSquareList(LevelSquare** levelSquares, int countLevels) ;
 LevelSquare* createLevelSquare(Level* level, Rectangle* rec);
 LevelSquare** createLevelSquareList(Level* levels[100], int countLevels, Vector2 initialPos);
 void verifyMouseMenu(LevelSquare** levelSquares, int countLevels);
 void DrawMenuScreen(Level* levels[100], int countLevels);
+void DrawLevelNumber(char nChar[3], int posX, int posY, bool hover);
+
+void LoadUITexturePack();
+void UnloadUITextures(void);
 
 #endif

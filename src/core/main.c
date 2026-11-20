@@ -24,7 +24,11 @@ int main() {
 
 	char folder[30] = "forestTextures";
 
-	LoadTexturePack(folder);
+	LoadMapTexturePack(folder);
+	LoadUITexturePack();
+
+	fontDefault = LoadFontEx("resources/fonts/font_pixel.ttf", 32, 0, 0);
+
 
 	char grid1[10][10] = {
 		{'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
@@ -116,7 +120,8 @@ int main() {
 		EndDrawing();
     }
 
-	UnloadTextures();
+	UnloadMapTextures();
+	UnloadUITextures();
 
 	CloseWindow();
     return 0;

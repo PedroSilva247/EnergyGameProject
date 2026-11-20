@@ -16,8 +16,8 @@ void DrawTrap(int x, int y);
 void DrawTrap(int currentX, int currentY);
 void DrawRecover(int x, int y);
 
-void LoadTexturePack(char folder[30]);
-void UnloadTextures(void);
+void LoadMapTexturePack(char folder[30]);
+void UnloadMapTextures(void);
 
 void UnloadFinishOpenedTexture(void);
 void UnloadFinishClosedTexture(void);

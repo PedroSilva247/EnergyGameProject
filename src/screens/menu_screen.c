@@ -7,19 +7,57 @@
 #include "../../include/config.h"
 #include "../../include/screen.h"
 
+#define NUMBER_LEVEL_SIZE 36
+
+static Texture2D levelButtonFrameTex;
+static Texture2D levelButtonFrameHoverTex;
+int levelHover = 0;
+
+void LoadUITexturePack() {
+    levelButtonFrameTex = LoadTexture("resources/uiTextures/level_button_frame.png");
+    SetTextureFilter(levelButtonFrameTex, TEXTURE_FILTER_POINT);
+
+    levelButtonFrameHoverTex = LoadTexture("resources/uiTextures/level_button_frame_hover.png");
+    SetTextureFilter(levelButtonFrameTex, TEXTURE_FILTER_POINT);
+}
+
+void UnloadUITextures(void) {
+    UnloadTexture(levelButtonFrameTex);
+    UnloadTexture(levelButtonFrameHoverTex);
+}
+
+
+void DrawLevelButtonFrame(Rectangle* rec, bool hover) {
+    Texture2D frameTex;
+    if(hover) {
+        frameTex = levelButtonFrameHoverTex;
+    } else {
+        frameTex = levelButtonFrameTex;
+    }
+    Rectangle source = { 0, 0, (float)frameTex.width, (float)frameTex.height }; //altura do png e largura
+    Rectangle dest   = { (float)rec->x, (float)rec->y, (float)rec->width, (float)rec->height }; //preencher o tile
+    DrawTexturePro(frameTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
+}
+
 void DrawLevelSquare(LevelSquare* levelSquare) {
     char strNumLevel[3];
     sprintf(strNumLevel, "%d", levelSquare->level->numLevel);
-    int fontSize = 20;
 
-    Vector2 textSize = MeasureTextEx(GetFontDefault(), strNumLevel, 20, 2);
+    Vector2 textSize = MeasureTextEx(fontDefault, strNumLevel, NUMBER_LEVEL_SIZE, 2);
 
     Vector2 textPositionPixel;
     textPositionPixel.x = levelSquare->rec->x + (levelSquare->rec->width / 2.0f) - (textSize.x / 2.0f);
     textPositionPixel.y = levelSquare->rec->y + (levelSquare->rec->height / 2.0f) - (textSize.y / 2.0f);
 
-    DrawRectangleRec(*(levelSquare->rec), LIGHTGRAY);
-    DrawText(strNumLevel, (int) textPositionPixel.x, (int) textPositionPixel.y, fontSize, BLACK);
+    if(levelHover == levelSquare->level->numLevel) {
+        DrawLevelButtonFrame(levelSquare->rec, true);
+        DrawLevelNumber(strNumLevel, (int) textPositionPixel.x, (int) textPositionPixel.y, true);
+    } else {
+        DrawLevelButtonFrame(levelSquare->rec, false);
+        DrawLevelNumber(strNumLevel, (int) textPositionPixel.x, (int) textPositionPixel.y, false);
+    }
+    
+
 }
 
 void DrawLevelSquareList(LevelSquare** levelSquares, int countLevels) {
@@ -45,7 +83,7 @@ LevelSquare** createLevelSquareList(Level* levels[100], int countLevels, Vector2
         copyRec = (Rectangle*) malloc(sizeof(Rectangle));
         *copyRec = currentRec;
         newLevelSquareList[i] = createLevelSquare(levels[i], copyRec);
-        currentRec.x += currentRec.width * 1.3;
+        currentRec.x += currentRec.width * 1.3; 
     }
 
     return newLevelSquareList;
@@ -53,12 +91,14 @@ LevelSquare** createLevelSquareList(Level* levels[100], int countLevels, Vector2
 
 void verifyMouseMenu(LevelSquare** levelSquares, int countLevels) {
     Vector2 mousePos = GetMousePosition();
+    levelHover = 0;
     for(int i = 0; i < countLevels; i++) {
         if(CheckCollisionPointRec(mousePos, *(levelSquares[i]->rec))) {
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 gameplayScreenToDraw = playLevel(levelSquares[i]->level);
                 currentScreen = SCREEN_GAMEPLAY;
             }
+            levelHover = i+1;
         }
     }
 
@@ -70,3 +110,13 @@ void DrawMenuScreen(Level* levels[100], int countLevels) {
     DrawLevelSquareList(levelSquareList, countLevels);
     verifyMouseMenu(levelSquareList, countLevels);
 }
+
+void DrawLevelNumber(char nChar[3], int posX, int posY, bool hover) {
+    DrawTextEx(fontDefault, nChar, (Vector2) {posX + 2, posY + 2}, NUMBER_LEVEL_SIZE, 2, TEXT_SHADOW_COLOR);
+    if(hover) {
+        DrawTextEx(fontDefault, nChar, (Vector2) {posX, posY}, NUMBER_LEVEL_SIZE, 2, TEXT_COLOR_HOVER);
+    } else {
+        DrawTextEx(fontDefault, nChar, (Vector2) {posX, posY}, NUMBER_LEVEL_SIZE, 2, TEXT_COLOR);
+    }
+}
+

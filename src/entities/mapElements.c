@@ -18,7 +18,7 @@ static Texture2D floorTex;
 static Texture2D wallTex;
 static Texture2D trapTex;
 
-void LoadTexturePack(char folder[30]) {
+void LoadMapTexturePack(char folder[30]) {
     char path[256];
 
     snprintf(path, sizeof path, "resources/%s/crystal.png", folder);
@@ -50,7 +50,7 @@ void LoadTexturePack(char folder[30]) {
     SetTextureFilter(trapTex, TEXTURE_FILTER_POINT);
 }
 
-void UnloadTextures(void) {
+void UnloadMapTextures(void) {
     UnloadTexture(crystalTex);
     UnloadTexture(recoverTex);
     UnloadTexture(finishOpenedTex);
