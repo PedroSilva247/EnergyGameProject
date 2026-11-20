@@ -2,6 +2,10 @@
 #include "../../include/screen.h"
 #include <raylib.h>
 
+
+
+int buttonTextSize = 36;
+
 int windowWidth = 1000;
 int windowHeight = 800;
 

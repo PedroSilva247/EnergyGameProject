@@ -9,6 +9,8 @@
 #define TEXT_SHADOW_COLOR (Color) {46, 28, 22, 255}
 #define TEXT_COLOR_HOVER (Color) {255, 224, 104, 255}
 
+extern int buttonTextSize;
+
 extern int windowWidth;
 extern int windowHeight;
 
