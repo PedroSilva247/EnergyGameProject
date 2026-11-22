@@ -6,8 +6,8 @@
 
 int buttonTextSize = 36;
 
-int windowWidth = 1000;
-int windowHeight = 800;
+int windowWidth = 1000*1.5;
+int windowHeight = 800*1.5;
 
 int startMapX = 100;
 int startMapY = 100;

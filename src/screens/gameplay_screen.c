@@ -5,28 +5,29 @@
 #include "../../include/player.h"
 #include "../../include/config.h"
 #include "../../include/mapElements.h"
+#include "../../include/ui.h"
 #define N 6
 
 #define MAX_LEVEL_ENERGY 10
 static int confirmingrestart = 0;
 
 
-void DrawHeader(Player* player, Level* level) {
-	DrawEnergy(player, level);
-	DrawCrystalsCounter(player, level);
-	DrawRounds(level);
+void DrawHeader(Player* player, Level* level, int x, int y) {
+	DrawEnergy(player, level, x, y);
+	DrawCrystalsCounter(player, level, x, y + 30);
+	DrawRounds(level, x, y + 60);
 }
-void DrawEnergy(Player* player, Level* level) {
-	DrawRectangleLinesEx((Rectangle) {10, 10, 5*tile, 0.4*tile}, 5.0F, BLACK);
-	DrawRectangle(10+5, 10+5, (5*tile - 5.0 * 2) * player->energy / level->maxEnergy, 0.4*tile - 5 - 5, YELLOW);
-	DrawText(TextFormat("ENERGIA: %d", player->energy), 30 + 5*tile, 10, 20, BLACK);
+void DrawEnergy(Player* player, Level* level, int x, int y) {
+	DrawRectangleLinesEx((Rectangle) {x, y, windowWidth/6, 24}, 5.0F, BLACK);
+	DrawRectangle(x+5, y+5, (windowWidth/6 - 5.0 * 2) * player->energy / level->maxEnergy, 24 - 5 - 5, YELLOW);
+	DrawText(TextFormat("ENERGIA: %d", player->energy), x + 30 + windowWidth/6, y, 20, BLACK);
 }
-void DrawCrystalsCounter(Player* player, Level* level) {
-	DrawText(TextFormat("CRISTAIS: %d/%d", player->crystals, level->minCrystals), 10, tile, 20, BLACK);
+void DrawCrystalsCounter(Player* player, Level* level, int x, int y) {
+	DrawText(TextFormat("CRISTAIS: %d/%d", player->crystals, level->minCrystals), x, y, 20, BLACK);
 }
 
-void DrawRounds(Level * level){
-	DrawText(TextFormat("Turnos: %d", level ->round), 10, 1.5 * tile, 20, BLACK);
+void DrawRounds(Level * level, int x, int y){
+	DrawText(TextFormat("Turnos: %d", level->round), x, y, 20, BLACK);
 }
 
 void DrawRestart(void) {
@@ -61,22 +62,42 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	int oldY = player->y;
 	bool isFinishLineOpened = false;
 
+	int panelWidth = windowWidth/1.2;
+	int panelHeight = (float)((float)simplePanel.height/(float)simplePanel.width) * panelWidth;
+	int panelX = windowWidth/2 - panelWidth/2;
+	int panelY = windowHeight/2 - panelHeight/2;
+
+	int panelInlinePadding = panelWidth/((float)simplePanel.width/34);  // o numero é o padding em pixels na imagem em tamanho bruto
+	int panelBlockPadding = panelHeight/((float)simplePanel.height/34);	// o numero é o padding em pixels na imagem em tamanho bruto
+
+	int headerX = panelX + panelInlinePadding;
+	int headerY = panelY + panelBlockPadding;
+
+	int mapY = headerY + 76 + 20;	// o segundo numero é o espaco entre a terceira linha do header e o mapa
+	int mapWidth = panelHeight - (mapY - panelY) - panelBlockPadding;
+
+	tile = mapWidth / level->map->width;
+
 	if (!confirmingrestart){
 		verifyKeyboardGameplay(player, level->map);
 		verifyKeyboardScreen();
 	}
-
-
-
-
-	if (player->x != oldX || player->y != oldY)
-	{
+	
+	if (player->x != oldX || player->y != oldY) {
 		level->round++;	
 	}
-	DrawHeader(player, level);
+	DrawBackground(1);
+	DrawBackgroundDarkFilter();
+
+
+	DrawSimplePanel(panelX, panelY, panelWidth);
+
+	DrawHeader(player, level, headerX, headerY);
+
 	updateMapElements(level, player, &isFinishLineOpened);
 	updatePlayer(player);
-	DrawMap(level->map, isFinishLineOpened);
+
+	DrawMap(level->map, isFinishLineOpened, mapWidth, mapY);
 	DrawPlayer(player);
 	DrawRestart();
 

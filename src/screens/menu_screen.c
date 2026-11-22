@@ -92,12 +92,6 @@ void verifyMouseMenu(LevelSquare** levelSquares, int countLevels) {
 
 }
 
-void DrawMenuScreen(Level* levels[100], int countLevels) {
-    LevelSquare** levelSquareList = createLevelSquareList(levels, countLevels, (Vector2) {10, 10});
-    DrawLevelSquareList(levelSquareList, countLevels);
-    verifyMouseMenu(levelSquareList, countLevels);
-}
-
 void DrawLevelNumber(char nChar[3], int posX, int posY, bool hover) {
     DrawTextEx(fontDefault, nChar, (Vector2) {posX + 2, posY + 2}, NUMBER_LEVEL_SIZE, 2, TEXT_SHADOW_COLOR);
     if(hover) {
@@ -107,3 +101,20 @@ void DrawLevelNumber(char nChar[3], int posX, int posY, bool hover) {
     }
 }
 
+void DrawMenuScreen(Level* levels[100], int countLevels) {
+
+    int panelWidth = windowWidth/1.3;
+    int panelHeight = (float)(328.0f/448.0f) * panelWidth;
+    int panelX = windowWidth/2 - panelWidth/2;
+    int panelY = windowHeight/2 - panelHeight/2;
+
+    LevelSquare** levelSquareList = createLevelSquareList(levels, countLevels, (Vector2) {panelX + panelWidth/13, panelY + panelHeight/9.5});
+    DrawBackground(0);
+    DrawBackgroundDarkFilter();
+
+
+    DrawSimplePanel(panelX, panelY, panelWidth);
+
+    DrawLevelSquareList(levelSquareList, countLevels);
+    verifyMouseMenu(levelSquareList, countLevels);
+}

@@ -29,7 +29,10 @@ Map* createMap(int width, int height, char* grid, int initialPlayerX, int initia
 
 
 
-void DrawMap(Map* map, bool isFinishLineOpened) {
+void DrawMap(Map* map, bool isFinishLineOpened, int width, int y) {
+	
+	startMapX = windowWidth/2 - width/2;
+	startMapY = y;
 	
 	int currentX = startMapX;
 	int currentY = startMapY;

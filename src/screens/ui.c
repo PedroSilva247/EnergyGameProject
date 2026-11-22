@@ -12,10 +12,14 @@
 
 Texture2D levelButtonFrameTex;
 Texture2D levelButtonFrameHoverTex;
-Texture2D backgroundTex;
+Texture2D backgroundStartTex;
+Texture2D backgroundGreenTreesTex;
+Texture2D backgroundColorfulTreesTex;
+Texture2D backgroundDarkTreesTex;
 Texture2D logoTex;
 Texture2D buttonTex;
 Texture2D buttonHoverTex;
+Texture2D simplePanel;
 
 Button* startScreenButtons[30];
 int countStartScreenButtons = 0;
@@ -28,8 +32,17 @@ void LoadUITexturePack() {
     levelButtonFrameHoverTex = LoadTexture("resources/uiTextures/level_button_frame_hover.png");
     SetTextureFilter(levelButtonFrameTex, TEXTURE_FILTER_POINT);
 
-    backgroundTex = LoadTexture("resources/uiTextures/background_start_screen.png");
-    SetTextureFilter(backgroundTex, TEXTURE_FILTER_POINT);
+    backgroundStartTex = LoadTexture("resources/uiTextures/background_start_screen.png");
+    SetTextureFilter(backgroundStartTex, TEXTURE_FILTER_POINT);
+
+    backgroundGreenTreesTex = LoadTexture("resources/uiTextures/background_green_trees.png");
+    SetTextureFilter(backgroundGreenTreesTex, TEXTURE_FILTER_POINT);
+
+    backgroundColorfulTreesTex = LoadTexture("resources/uiTextures/background_colorful_trees.png");
+    SetTextureFilter(backgroundColorfulTreesTex, TEXTURE_FILTER_POINT);
+
+    backgroundDarkTreesTex = LoadTexture("resources/uiTextures/background_dark_trees.png");
+    SetTextureFilter(backgroundDarkTreesTex, TEXTURE_FILTER_POINT);
 
     logoTex = LoadTexture("resources/uiTextures/logo.png");
     SetTextureFilter(logoTex, TEXTURE_FILTER_POINT);
@@ -39,19 +52,54 @@ void LoadUITexturePack() {
 
     buttonHoverTex = LoadTexture("resources/uiTextures/button_hover.png");
     SetTextureFilter(buttonHoverTex, TEXTURE_FILTER_POINT);
+
+    simplePanel = LoadTexture("resources/uiTextures/simple_panel.png");
+    SetTextureFilter(simplePanel, TEXTURE_FILTER_POINT);
 }
 
 void UnloadUITextures(void) {
     UnloadTexture(levelButtonFrameTex);
     UnloadTexture(levelButtonFrameHoverTex);
-    UnloadTexture(backgroundTex);
+    UnloadTexture(backgroundStartTex);
+    UnloadTexture(backgroundGreenTreesTex);
+    UnloadTexture(backgroundColorfulTreesTex);
+    UnloadTexture(backgroundDarkTreesTex);
     UnloadTexture(logoTex);
+    UnloadTexture(simplePanel);
 }
 
-void DrawBackground() {
+void DrawBackground(int n) {
+    Texture2D backgroundTex;
+    switch (n) {
+        case 0:
+            backgroundTex = backgroundStartTex;
+            break;
+        case 1:
+            backgroundTex = backgroundGreenTreesTex;
+            break;
+        case 2:
+            backgroundTex = backgroundColorfulTreesTex;
+            break;
+        case 3:
+            backgroundTex = backgroundDarkTreesTex;
+            break;
+        default:
+            backgroundTex = backgroundStartTex;
+            break;
+    }
     Rectangle source = { 0, 0, (float)backgroundTex.width, (float)backgroundTex.height }; //altura do png e largura
     Rectangle dest   = { 0.0f, 0.0f, (float)windowWidth, (float)windowHeight };
     DrawTexturePro(backgroundTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
+}
+
+void DrawBackgroundDarkFilter() {
+    DrawRectangle(0, 0, windowWidth, windowHeight, (Color) {0, 0, 0, 100});
+}
+
+void DrawSimplePanel(int x, int y, int width) {
+    Rectangle source = { 0, 0, (float)simplePanel.width, (float)simplePanel.height }; //altura do png e largura
+    Rectangle dest   = { (float) x, (float) y, (float) width, (float)((float)simplePanel.height/(float)simplePanel.width) * width };
+    DrawTexturePro(simplePanel, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
 
 void DrawLogo() {

@@ -12,10 +12,10 @@ typedef struct GameplayScreenToDraw {
 } GameplayScreenToDraw;
 
 void DrawGameplayScreen(Level* level, Player* player);
-void DrawHeader(Player* player, Level* level);
-void DrawEnergy(Player* player, Level* level);
-void DrawCrystalsCounter(Player* player, Level* level);
-void DrawRounds(Level* level);
+void DrawHeader(Player* player, Level* level, int x, int y);
+void DrawEnergy(Player* player, Level* level, int x, int y);
+void DrawCrystalsCounter(Player* player, Level* level, int x, int y);
+void DrawRounds(Level* level, int x, int y);
 void DrawRestartHint(void);
 
 #endif

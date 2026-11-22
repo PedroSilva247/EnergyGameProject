@@ -5,10 +5,14 @@
 
 extern Texture2D levelButtonFrameTex;
 extern Texture2D levelButtonFrameHoverTex;
-extern Texture2D backgroundTex;
+extern Texture2D backgroundStartTex;
+extern Texture2D backgroundGreenTreesTex;
+extern Texture2D backgroundColorfulTreesTex;
+extern Texture2D backgroundDarkTreesTex;
 extern Texture2D logoTex;
 extern Texture2D buttonTex;
 extern Texture2D buttonHoverTex;
+extern Texture2D simplePanel;
 
 
 
@@ -26,13 +30,17 @@ void LoadUITexturePack();
 
 void UnloadUITextures(void);
 
-void DrawBackground();
+void DrawBackground(int n);
+
+void DrawBackgroundDarkFilter();
+
+void DrawSimplePanel(int x, int y, int width);
 
 void DrawLogo();
 
 Button* createButton(Rectangle rec, void (*func) (void), char* str);
 
-void DrawButtonFrame(Rectangle* rec, bool hover) ;
+void DrawButtonFrame(Rectangle* rec, bool hover);
 
 void DrawButtonText(Button* button);
 

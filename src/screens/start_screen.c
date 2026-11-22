@@ -16,7 +16,7 @@
 
 
 void DrawStartScreen() {
-    DrawBackground();
+    DrawBackground(0);
     DrawLogo();
     DrawButton(startScreenButtons[0]);
     verifyMouseButtons(startScreenButtons, countStartScreenButtons);

@@ -13,7 +13,7 @@ typedef struct Map {
 	int initialPlayerY;
 } Map;
 
-void DrawMap(Map* map, bool isFinishLineOpened);
+void DrawMap(Map* map, bool isFinishLineOpened, int width, int y);
 
 Map* createMap(int width, int height, char* grid, int initialPlayerX, int initialPlayerY);
 
