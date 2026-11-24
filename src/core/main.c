@@ -22,6 +22,8 @@
 
 
 int main() {
+
+	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 	srand((unsigned int)time(NULL));
 
     InitWindow(windowWidth, windowHeight, "EnergyGame");
@@ -109,6 +111,11 @@ int main() {
     SetTargetFPS(120);
 	while(!WindowShouldClose()) {
 
+		windowWidth = GetScreenWidth();
+		windowHeight = GetScreenHeight();
+
+		buttonTextSize = max_float(10.0f, min_float(40.0f, 36.0f*(float)((float)windowWidth/1500.0f)));
+		
 		unitX = GetWindowScaleDPI().x / 1000;
 		unitY = GetWindowScaleDPI().y / 1000;
 		

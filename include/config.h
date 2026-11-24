@@ -9,6 +9,14 @@
 #define TEXT_SHADOW_COLOR (Color) {46, 28, 22, 255}
 #define TEXT_COLOR_HOVER (Color) {255, 224, 104, 255}
 
+static inline float max_float(float a, float b) {
+    return a > b ? a : b;
+}
+
+static inline float min_float(float a, float b) {
+    return a < b ? a : b;
+}
+
 extern int buttonTextSize;
 
 extern int windowWidth;

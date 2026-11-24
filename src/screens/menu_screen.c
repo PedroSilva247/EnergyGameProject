@@ -8,7 +8,6 @@
 #include "../../include/screen.h"
 #include "../../include/ui.h"
 
-#define NUMBER_LEVEL_SIZE 36
 #define LEVEL_SQUARE_SIZE (windowWidth / 15.0f)
 
 
@@ -31,7 +30,7 @@ void DrawLevelSquare(LevelSquare* levelSquare) {
     char strNumLevel[3];
     sprintf(strNumLevel, "%d", levelSquare->level->numLevel);
 
-    Vector2 textSize = MeasureTextEx(fontDefault, strNumLevel, NUMBER_LEVEL_SIZE, 2);
+    Vector2 textSize = MeasureTextEx(fontDefault, strNumLevel, buttonTextSize, 2);
 
     Vector2 textPositionPixel;
     textPositionPixel.x = levelSquare->rec->x + (levelSquare->rec->width / 2.0f) - (textSize.x / 2.0f);
@@ -94,11 +93,11 @@ void verifyMouseMenu(LevelSquare** levelSquares, int countLevels) {
 }
 
 void DrawLevelNumber(char nChar[3], int posX, int posY, bool hover) {
-    DrawTextEx(fontDefault, nChar, (Vector2) {posX + 2, posY + 2}, NUMBER_LEVEL_SIZE, 2, TEXT_SHADOW_COLOR);
+    DrawTextEx(fontDefault, nChar, (Vector2) {posX + 2, posY + 2}, buttonTextSize, 2, TEXT_SHADOW_COLOR);
     if(hover) {
-        DrawTextEx(fontDefault, nChar, (Vector2) {posX, posY}, NUMBER_LEVEL_SIZE, 2, TEXT_COLOR_HOVER);
+        DrawTextEx(fontDefault, nChar, (Vector2) {posX, posY}, buttonTextSize, 2, TEXT_COLOR_HOVER);
     } else {
-        DrawTextEx(fontDefault, nChar, (Vector2) {posX, posY}, NUMBER_LEVEL_SIZE, 2, TEXT_COLOR);
+        DrawTextEx(fontDefault, nChar, (Vector2) {posX, posY}, buttonTextSize, 2, TEXT_COLOR);
     }
 }
 

@@ -21,7 +21,7 @@ Texture2D buttonTex;
 Texture2D buttonHoverTex;
 Texture2D simplePanel;
 
-Button* startScreenButtons[30];
+Button* startScreenButtons[10];
 int countStartScreenButtons = 0;
 
 
@@ -153,6 +153,9 @@ void DrawButtonText(Button* button) {
 }
 
 void DrawButton(Button* button) {
+    button->rec->x = windowWidth/2 - buttonTex.width/2;
+    button->rec->y = windowHeight - windowHeight/3;
+
     DrawButtonFrame(button->rec, button->hover);
     
     DrawButtonText(button);

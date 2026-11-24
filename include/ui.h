@@ -23,7 +23,7 @@ typedef struct struct_button {
     bool hover;
 } Button;
 
-extern Button* startScreenButtons[30];
+extern Button* startScreenButtons[10];
 extern int countStartScreenButtons;
 
 void LoadUITexturePack();
