@@ -9,14 +9,13 @@
 #include "../../include/level.h"
 
 static Texture2D crystalTex;
-
 static Texture2D recoverTex;
-
 static Texture2D finishOpenedTex;
 static Texture2D finishClosedTex;
 static Texture2D floorTex;
 static Texture2D wallTex;
 static Texture2D trapTex;
+static Texture2D randomEventTex;
 
 void LoadMapTexturePack(char folder[30]) {
     char path[256];
@@ -48,6 +47,10 @@ void LoadMapTexturePack(char folder[30]) {
     snprintf(path, sizeof path, "resources/%s/trap.png", folder);
     trapTex = LoadTexture(path);
     SetTextureFilter(trapTex, TEXTURE_FILTER_POINT);
+
+    snprintf(path, sizeof path, "resources/%s/random_event.png", folder);
+    randomEventTex = LoadTexture(path);
+    SetTextureFilter(randomEventTex, TEXTURE_FILTER_POINT);
 }
 
 void UnloadMapTextures(void) {
@@ -89,22 +92,28 @@ void DrawFinishLine(int x, int y, bool isFinishLineOpened) {
         
 }
 
-void DrawFloor(int currentX, int currentY) {
+void DrawFloor(int x, int y) {
     Rectangle source = { 0, 0, (float)floorTex.width, (float)floorTex.height }; //altura do png e largura
-    Rectangle dest   = { (float)currentX, (float)currentY, (float)tile, (float)tile }; //preencher o tile
+    Rectangle dest   = { (float)x, (float)y, (float)tile, (float)tile }; //preencher o tile
     DrawTexturePro(floorTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
 
-void DrawWall(int currentX, int currentY) {
+void DrawWall(int x, int y) {
     Rectangle source = { 0, 0, (float)wallTex.width, (float)wallTex.height }; //altura do png e largura
-    Rectangle dest   = { (float)currentX, (float)currentY, (float)tile, (float)tile }; //preencher o tile
+    Rectangle dest   = { (float)x, (float)y, (float)tile, (float)tile }; //preencher o tile
     DrawTexturePro(wallTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
 
-void DrawTrap(int currentX, int currentY) {
+void DrawTrap(int x, int y) {
     Rectangle source = { 0, 0, (float)trapTex.width, (float)trapTex.height }; //altura do png e largura
-    Rectangle dest   = { (float)currentX, (float)currentY, (float)tile, (float)tile }; //preencher o tile
+    Rectangle dest   = { (float)x, (float)y, (float)tile, (float)tile }; //preencher o tile
     DrawTexturePro(trapTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
+}
+
+void DrawRandomEvent(int x, int y) {
+    Rectangle source = { 0, 0, (float)randomEventTex.width, (float)randomEventTex.height }; //altura do png e largura
+    Rectangle dest   = { (float)x, (float)y, (float)tile, (float)tile }; //preencher o tile
+    DrawTexturePro(randomEventTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
 
 void updateMapElements(Level* level, Player* player, bool* isFinishLineOpened) {
@@ -120,6 +129,9 @@ void updateMapElements(Level* level, Player* player, bool* isFinishLineOpened) {
 	}
     if(verifyPlayerTile(player, level->map) == 'r') {
 		getRecover(player, level);
+	}
+    if(verifyPlayerTile(player, level->map) == '?') {
+		getRandomEvent(player, level->map);
 	}
 }
 

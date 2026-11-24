@@ -9,12 +9,13 @@ typedef struct Player Player;
 typedef struct Level Level;
 
 void DrawCrystal(int x, int y);
-void DrawWall(int currentX, int currentY);
+void DrawWall(int x, int y);
 void DrawFinishLine(int x, int y, bool isFinishLineOpened);
-void DrawFloor(int currentX, int currentY);
+void DrawFloor(int x, int y);
 void DrawTrap(int x, int y);
-void DrawTrap(int currentX, int currentY);
+void DrawTrap(int x, int y);
 void DrawRecover(int x, int y);
+void DrawRandomEvent(int x, int y);
 
 void LoadMapTexturePack(char folder[30]);
 void UnloadMapTextures(void);

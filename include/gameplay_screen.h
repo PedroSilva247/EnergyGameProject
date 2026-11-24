@@ -17,5 +17,6 @@ void DrawEnergy(Player* player, Level* level, int x, int y);
 void DrawCrystalsCounter(Player* player, Level* level, int x, int y);
 void DrawRounds(Level* level, int x, int y);
 void DrawRestartHint(void);
+void DrawPlayerEffects(Player* player, Level* level, bool* isPlayerInvisible);
 
 #endif

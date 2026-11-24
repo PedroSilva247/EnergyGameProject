@@ -1,4 +1,5 @@
 #include <raylib.h>
+#include <string.h>
 #include "../../include/gameplay_screen.h"
 #include "../../include/map.h"
 #include "../../include/level.h"
@@ -57,6 +58,21 @@ void DrawRestartScreen(void) {
 	DrawText("Nao [N]", cx + 2*tile - MeasureText("Nao [N]", 20) / 2, cy + tile/2 + (tile - 20) / 2, 20, BLACK);
 }
 
+void DrawPlayerEffects(Player* player, Level* level, bool* isPlayerInvisible) {
+	if(player->nEffects > 0) {
+		for (int i = 0; i < player->nEffects; i++) {
+			if(strcmp(player->effects[i], "blindness") == 0) {
+				DrawBlindness(level->map->width, level->map->height, player->x, player->y);
+			}
+
+			if(strcmp(player->effects[i], "invisibility") == 0) {
+				*isPlayerInvisible = true;
+			}
+		}
+	}
+}
+
+
 void DrawGameplayScreen(Level* level, Player* player) {
 	int oldX = player->x;
 	int oldY = player->y;
@@ -75,6 +91,8 @@ void DrawGameplayScreen(Level* level, Player* player) {
 
 	int mapY = headerY + 76 + 20;	// o segundo numero é o espaco entre a terceira linha do header e o mapa
 	int mapWidth = panelHeight - (mapY - panelY) - panelBlockPadding;
+
+	bool isPlayerInvisible = false;
 
 	tile = mapWidth / level->map->width;
 
@@ -98,8 +116,15 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	updatePlayer(player);
 
 	DrawMap(level->map, isFinishLineOpened, mapWidth, mapY);
-	DrawPlayer(player);
+	
+	
 	DrawRestart();
+
+	DrawPlayerEffects(player, level, &isPlayerInvisible);
+
+	if(!isPlayerInvisible) {
+		DrawPlayer(player);
+	}
 
 	if (confirmingrestart){
 		DrawRestartScreen();

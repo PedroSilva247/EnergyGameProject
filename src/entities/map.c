@@ -60,6 +60,9 @@ void DrawMap(Map* map, bool isFinishLineOpened, int width, int y) {
 				case 'r':
 					DrawRecover(currentX, currentY);
 					break;
+				case '?':
+					DrawRandomEvent(currentX, currentY);
+					break;
 			}
 			currentX += tile;
 		}

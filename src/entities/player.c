@@ -1,10 +1,17 @@
 #include <raylib.h>
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <time.h>
+
 #include "../../include/player.h"
 #include "../../include/config.h"
 #include "../../include/map.h"
 #include "../../include/level.h"
 #include "../../include/gameplay_screen.h"
+#include "../../include/mapElements.h"
+
+#define BLINDNESS_DISTANCE 1
 
 
 Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* controlKeys) {
@@ -18,11 +25,16 @@ Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* contro
     player->controlKeys = controlKeys;
     player->sprite = LoadTexture("resources/player.png"); //faz o load do sprite
     SetTextureFilter(player->sprite, TEXTURE_FILTER_POINT); //adapta para pixel art
-
+    
     positionPixel->x = startMapX + (x * tile) + (tile / 2);
     positionPixel->y = startMapY + (y * tile) + (tile / 2);
-
+    
     player->positionPixel = positionPixel;
+    
+    for(int i = 0; i < MAX_EFFECTS; i++) {
+        strcpy(player->effects[i], "");
+    }
+    player->nEffects = 0;
 
     return player;
 }
@@ -133,4 +145,44 @@ void getRecover(Player* player, Level* level) {
 void updatePlayer(Player* player) {
     player->positionPixel->x = startMapX + (player->x * tile) + (tile / 2);
     player->positionPixel->y = startMapY + (player->y * tile) + (tile / 2);
+}
+
+int generateRandomNumber(int min, int max) {
+    return min + rand() % (max - min + 1);
+}
+
+void getRandomEvent(Player* player, Map* map) {
+    switch (generateRandomNumber(0, 1)) {
+        case 0:
+            applyPlayerEffect(player, "blindness");
+            break;
+        case 1:
+            applyPlayerEffect(player, "invisibility");
+            break;
+    }
+    map->grid[player->y*map->width + player->x] = 'e';
+}
+
+void applyPlayerEffect(Player* player, char* effect) {
+    if(player->nEffects < MAX_EFFECTS) {
+        strcpy(player->effects[player->nEffects], effect);
+        player->nEffects++;
+    }
+}
+
+void DrawBlindness(int mapWidth, int mapHeight, int playerX, int playerY) {
+    int currentX = startMapX;
+	int currentY = startMapY;
+
+	for(int i = 0; i < mapHeight; i++) {
+        for(int j = 0; j < mapWidth; j++) {
+            if(!((i <= playerY + BLINDNESS_DISTANCE && i >= playerY - BLINDNESS_DISTANCE) && (j <= playerX + BLINDNESS_DISTANCE && j >= playerX - BLINDNESS_DISTANCE))) {
+                // se nao estiver no campo de visao
+                DrawRectangle(currentX, currentY, tile, tile, BLACK);
+            }
+            currentX += tile;
+        }
+        currentX = startMapX;
+        currentY += tile;
+    }
 }

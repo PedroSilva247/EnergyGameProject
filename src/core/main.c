@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <raylib.h>
 #include <math.h>
+#include <time.h>
 #include <stdlib.h>
 #include "../../include/gameplay_screen.h"
 #include "../../include/map.h"
@@ -19,6 +20,8 @@
 
 
 int main() {
+	srand((unsigned int)time(NULL));
+
     InitWindow(windowWidth, windowHeight, "EnergyGame");
 
 	
@@ -42,7 +45,7 @@ int main() {
 		{'#', 'e', '#', 'e', 'e', 'e', '#', 'e', 'e', '#'},
 		{'#', 'e', '#', '#', '#', 'e', '#', 'e', '#', '#'},
 		{'#', 'e', '#', 'c', '#', 'e', '#', 'e', 'e', '#'},
-		{'#', 'e', 'e', 'c', '#', '#', '#', '#', 't', '#'},
+		{'#', 'e', '?', 'c', '#', '#', '#', '#', 't', '#'},
 		{'#', 'e', '#', 'c', 'e', 'e', 'e', '#', 'e', '#'},
 		{'#', 'e', '#', '#', '#', 'e', 'e', '#', 'e', '#'},
 		{'#', 'e', 'e', 'e', 'r', 'e', 'e', 'e', 'f', '#'},
