@@ -26,14 +26,14 @@ bool hasPlayerEffect(Player* player, const char* effect) {
 }
 
 void DrawBlindness(int mapWidth, int mapHeight, int playerX, int playerY, Vector2* playerPositionPixel) {
-    int currentX = startMapX;
-    int currentY = startMapY;
+    float currentX = (float)startMapX;
+    float currentY = (float)startMapY;
 
     for(int i = 0; i < mapHeight; i++) {
         for(int j = 0; j < mapWidth; j++) {
             if(!((i <= playerY + BLINDNESS_DISTANCE && i >= playerY - BLINDNESS_DISTANCE) &&
                  (j <= playerX + BLINDNESS_DISTANCE && j >= playerX - BLINDNESS_DISTANCE))) {
-                DrawRectangle(currentX, currentY, tile, tile, BLACK);
+                DrawRectangleRec((Rectangle){currentX, currentY, tile, tile}, BLACK);
             }
             currentX += tile;
         }

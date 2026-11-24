@@ -11,7 +11,7 @@ int windowHeight = 800*1.5;
 
 int startMapX = 100;
 int startMapY = 100;
-int tile = 50;
+float tile = 50.0f;
 int trapDamage = 3;
 int recoverEnergy = 5;
 int recoverHealsMoreThanMax = 1;

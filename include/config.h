@@ -26,6 +26,6 @@ extern GameplayScreenToDraw* gameplayScreenToDraw;
 
 extern int startMapX;
 extern int startMapY;
-extern int tile;
+extern float tile;
 extern int restartRequested;
 #endif

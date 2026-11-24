@@ -47,16 +47,16 @@ void DrawRestartScreen(void) {
 	int cy = GetScreenHeight() / 2;
 
 	DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Fade(GRAY, 0.6f));                   // fundo translucido
-	DrawRectangle(cx - 4*tile, cy - 2*tile, 8*tile, 4*tile, RAYWHITE);                            // caixa
-	DrawRectangleLinesEx((Rectangle) {cx - 4*tile, cy - 2*tile, 8*tile, 4*tile}, 5.0f, BLACK);  
-	DrawRectangle(cx - 7*tile/2, cy + tile/2, 3*tile, tile, LIGHTGRAY);                           // botao Sim
-	DrawRectangleLinesEx((Rectangle) {cx - 7*tile/2, cy + tile/2, 3*tile, tile}, 5.0f, BLACK);    
-	DrawRectangle(cx + tile/2, cy + tile/2, 3*tile, tile, LIGHTGRAY);                             // botao Nao
-	DrawRectangleLinesEx((Rectangle) {cx + tile/2, cy + tile/2, 3*tile, tile}, 5.0f, BLACK);      
+	DrawRectangleRec((Rectangle){cx - 4*tile, cy - 2*tile, 8*tile, 4*tile}, RAYWHITE);
+	DrawRectangleLinesEx((Rectangle) {cx - 4*tile, cy - 2*tile, 8*tile, 4*tile}, 5.0F, BLACK);
+	DrawRectangleRec((Rectangle){cx - 7*tile/2, cy + tile/2, 3*tile, tile}, LIGHTGRAY);
+	DrawRectangleLinesEx((Rectangle) {cx - 7*tile/2, cy + tile/2, 3*tile, tile}, 5.0F, BLACK);
+	DrawRectangleRec((Rectangle){cx + tile/2, cy + tile/2, 3*tile, tile}, LIGHTGRAY);
+	DrawRectangleLinesEx((Rectangle) {cx + tile/2, cy + tile/2, 3*tile, tile}, 5.0F, BLACK);
 
-	DrawText("Reiniciar a fase?", cx - MeasureText("Reiniciar a fase?", 30) / 2, cy - 3*tile/2, 30, BLACK);
-	DrawText("Sim [S]", cx - 2*tile - MeasureText("Sim [S]", 20) / 2, cy + tile/2 + (tile - 20) / 2, 20, BLACK);
-	DrawText("Nao [N]", cx + 2*tile - MeasureText("Nao [N]", 20) / 2, cy + tile/2 + (tile - 20) / 2, 20, BLACK);
+	DrawText("Reiniciar a fase?", cx - MeasureText("Reiniciar a fase?", 30) / 2, (int)(cy - 3*tile/2), 30, BLACK);
+	DrawText("Sim [S]", (int)(cx - 2*tile - MeasureText("Sim [S]", 20) / 2), (int)(cy + tile/2 + (tile - 20)/2), 20, BLACK);
+	DrawText("Nao [N]", (int)(cx + 2*tile - MeasureText("Nao [N]", 20) / 2), (int)(cy + tile/2 + (tile - 20)/2), 20, BLACK);
 }
 
 void DrawPlayerEffects(Player* player, Level* level, bool* isPlayerInvisible) {
@@ -91,7 +91,7 @@ void DrawGameplayScreen(Level* level, Player* player) {
 
 	bool isPlayerInvisible = false;
 
-	tile = mapWidth / level->map->width;
+	tile = (float)mapWidth / level->map->width;
 
 	if (!confirmingrestart){
 		verifyKeyboardGameplay(player, level->map);
@@ -110,9 +110,9 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	DrawHeader(player, level, headerX, headerY);
 
 	updateMapElements(level, player, &isFinishLineOpened);
-	updatePlayer(player);
 
 	DrawMap(level->map, isFinishLineOpened, mapWidth, mapY);
+	updatePlayer(player);
 	
 	
 	DrawRestart();

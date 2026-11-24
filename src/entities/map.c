@@ -34,8 +34,8 @@ void DrawMap(Map* map, bool isFinishLineOpened, int width, int y) {
 	startMapX = windowWidth/2 - width/2;
 	startMapY = y;
 	
-	int currentX = startMapX;
-	int currentY = startMapY;
+	float currentX = (float)startMapX;
+	float currentY = (float)startMapY;
 	
 
 	for (int i = 0; i < map->height; i++) {

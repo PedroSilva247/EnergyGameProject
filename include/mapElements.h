@@ -8,14 +8,13 @@ typedef struct Map Map;
 typedef struct Player Player;
 typedef struct Level Level;
 
-void DrawCrystal(int x, int y);
-void DrawWall(int x, int y);
-void DrawFinishLine(int x, int y, bool isFinishLineOpened);
-void DrawFloor(int x, int y);
-void DrawTrap(int x, int y);
-void DrawTrap(int x, int y);
-void DrawRecover(int x, int y);
-void DrawRandomEvent(int x, int y);
+void DrawCrystal(float x, float y);
+void DrawWall(float x, float y);
+void DrawFinishLine(float x, float y, bool isFinishLineOpened);
+void DrawFloor(float x, float y);
+void DrawTrap(float x, float y);
+void DrawRecover(float x, float y);
+void DrawRandomEvent(float x, float y);
 
 void LoadMapTexturePack(char folder[30]);
 void UnloadMapTextures(void);

@@ -9,6 +9,7 @@
 #include "../../include/ui.h"
 
 #define NUMBER_LEVEL_SIZE 36
+#define LEVEL_SQUARE_SIZE (windowWidth / 15.0f)
 
 
 
@@ -64,7 +65,7 @@ LevelSquare* createLevelSquare(Level* level, Rectangle* rec) {
 
 LevelSquare** createLevelSquareList(Level* levels[100], int countLevels, Vector2 initialPos) {
     LevelSquare** newLevelSquareList = (LevelSquare**) malloc(sizeof(LevelSquare*)* countLevels);
-    Rectangle currentRec = {initialPos.x, initialPos.y, tile*2, tile*2}; 
+    Rectangle currentRec = {initialPos.x, initialPos.y, LEVEL_SQUARE_SIZE, LEVEL_SQUARE_SIZE};
     Rectangle* copyRec;
     for(int i = 0; i < countLevels; i++) {
         copyRec = (Rectangle*) malloc(sizeof(Rectangle));
