@@ -23,7 +23,7 @@ typedef struct Player {
     ControlKeys* controlKeys;
     Vector2* positionPixel;
     Texture2D sprite; //Load dos sprites do player
-    char effects[20][MAX_EFFECTS];
+    char effects[MAX_EFFECTS][20];
     int nEffects;
 } Player;
 
@@ -53,9 +53,5 @@ void getRecover(Player* player, Level* level);
 int generateRandomNumber(int min, int max);
 
 void getRandomEvent(Player* player, Map* map);
-
-void applyPlayerEffect(Player* player, char* effect);
-
-void DrawBlindness(int mapWidth, int mapHeight, int playerX, int playerY);
 
 #endif

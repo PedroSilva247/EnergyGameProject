@@ -1,6 +1,8 @@
 #ifndef GAMEPLAY_SCREEN
 #define GAMEPLAY_SCREEN
 
+#include <stdbool.h>
+
 typedef struct Level Level;
 
 typedef struct Player Player;

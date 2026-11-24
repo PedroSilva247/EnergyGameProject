@@ -10,8 +10,7 @@
 #include "../../include/level.h"
 #include "../../include/gameplay_screen.h"
 #include "../../include/mapElements.h"
-
-#define BLINDNESS_DISTANCE 1
+#include "../../include/effects.h"
 
 
 Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* controlKeys) {
@@ -161,28 +160,4 @@ void getRandomEvent(Player* player, Map* map) {
             break;
     }
     map->grid[player->y*map->width + player->x] = 'e';
-}
-
-void applyPlayerEffect(Player* player, char* effect) {
-    if(player->nEffects < MAX_EFFECTS) {
-        strcpy(player->effects[player->nEffects], effect);
-        player->nEffects++;
-    }
-}
-
-void DrawBlindness(int mapWidth, int mapHeight, int playerX, int playerY) {
-    int currentX = startMapX;
-	int currentY = startMapY;
-
-	for(int i = 0; i < mapHeight; i++) {
-        for(int j = 0; j < mapWidth; j++) {
-            if(!((i <= playerY + BLINDNESS_DISTANCE && i >= playerY - BLINDNESS_DISTANCE) && (j <= playerX + BLINDNESS_DISTANCE && j >= playerX - BLINDNESS_DISTANCE))) {
-                // se nao estiver no campo de visao
-                DrawRectangle(currentX, currentY, tile, tile, BLACK);
-            }
-            currentX += tile;
-        }
-        currentX = startMapX;
-        currentY += tile;
-    }
 }

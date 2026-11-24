@@ -13,6 +13,8 @@
 #include "../../include/start_screen.h"
 #include "../../include/config.h"
 #include "../../include/ui.h"
+#include "../../include/effects.h"
+
 
 #define N 6
 #define MAX_MAP_SIZE 30
@@ -31,6 +33,7 @@ int main() {
 	
 	LoadMapTexturePack(folder);
 	LoadUITexturePack();
+	LoadEffectsTextures();
 	
 	Button* startButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "JOGAR");
 	startScreenButtons[countStartScreenButtons] = startButton;
@@ -134,6 +137,7 @@ int main() {
 
 	UnloadMapTextures();
 	UnloadUITextures();
+	UnloadEffectsTextures();
 
 	CloseWindow();
     return 0;

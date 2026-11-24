@@ -7,6 +7,7 @@
 #include "../../include/config.h"
 #include "../../include/mapElements.h"
 #include "../../include/ui.h"
+#include "../../include/effects.h"
 #define N 6
 
 #define MAX_LEVEL_ENERGY 10
@@ -59,16 +60,12 @@ void DrawRestartScreen(void) {
 }
 
 void DrawPlayerEffects(Player* player, Level* level, bool* isPlayerInvisible) {
-	if(player->nEffects > 0) {
-		for (int i = 0; i < player->nEffects; i++) {
-			if(strcmp(player->effects[i], "blindness") == 0) {
-				DrawBlindness(level->map->width, level->map->height, player->x, player->y);
-			}
+	if(hasPlayerEffect(player, "blindness")) {
+		DrawBlindness(level->map->width, level->map->height, player->x, player->y, player->positionPixel);
+	}
 
-			if(strcmp(player->effects[i], "invisibility") == 0) {
-				*isPlayerInvisible = true;
-			}
-		}
+	if(hasPlayerEffect(player, "invisibility")) {
+		*isPlayerInvisible = true;
 	}
 }
 
