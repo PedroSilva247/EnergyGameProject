@@ -89,9 +89,12 @@ void DrawEndPanel(Player* player, bool win) {
     Rectangle dest   = { (float) panelX, (float) panelY, (float) panelWidth, (float)((float)tex.height/(float)tex.width) * panelWidth };
     DrawTexturePro(tex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 
-	DrawButton(endGameplayScreenButtons[0]);
-	DrawButton(endGameplayScreenButtons[1]);
-	DrawButton(endGameplayScreenButtons[2]);
+	updateButton(endGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX - defaultButtonSize.x - defaultButtonGap, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+	updateButton(endGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+	updateButton(endGameplayScreenButtons[2], (Rectangle) {defaultCenterButtonX + defaultButtonSize.x + defaultButtonGap, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+	for(int i = 0; i < countEndGameplayScreenButtons; i++) {
+		DrawButton(endGameplayScreenButtons[i]);
+	}
 }
 
 
@@ -108,12 +111,12 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	bool isFinishLineOpened = false;
 
 	int panelWidth = windowWidth/1.2;
-	int panelHeight = (float)((float)simplePanel.height/(float)simplePanel.width) * panelWidth;
+	int panelHeight = (float)((float)gameplayPanelTex.height/(float)gameplayPanelTex.width) * panelWidth;
 	int panelX = windowWidth/2 - panelWidth/2;
 	int panelY = windowHeight/2 - panelHeight/2;
 
-	int panelInlinePadding = panelWidth/((float)simplePanel.width/34);  // o numero é o padding em pixels na imagem em tamanho bruto
-	int panelBlockPadding = panelHeight/((float)simplePanel.height/34);	// o numero é o padding em pixels na imagem em tamanho bruto
+	int panelInlinePadding = panelWidth/((float)gameplayPanelTex.width/34);  // o numero é o padding em pixels na imagem em tamanho bruto
+	int panelBlockPadding = panelHeight/((float)gameplayPanelTex.height/50);	// o numero é o padding em pixels na imagem em tamanho bruto
 
 	int headerX = panelX + panelInlinePadding;
 	int headerY = panelY + panelBlockPadding;
@@ -123,7 +126,7 @@ void DrawGameplayScreen(Level* level, Player* player) {
 
 	bool isPlayerInvisible = false;
 
-	tile = (float)mapWidth / level->map->width;
+	
 
 	if (!confirmingrestart){
 		
@@ -136,8 +139,7 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	DrawBackground(1);
 	DrawBackgroundDarkFilter();
 
-
-	DrawSimplePanel(panelX, panelY, panelWidth);
+	DrawGameplayPanel(panelX, panelY, panelWidth);
 
 	DrawHeader(player, level, headerX, headerY);
 

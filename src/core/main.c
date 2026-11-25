@@ -112,7 +112,11 @@ int main() {
 		windowWidth = GetScreenWidth();
 		windowHeight = GetScreenHeight();
 
-		buttonTextSize = max_float(10.0f, min_float(40.0f, 36.0f*(float)((float)windowWidth/1500.0f)));
+		buttonTextSize = clamp(10.0f, 36.0f, 40.0f);
+		defaultButtonSize = (Vector2) {clamp(268/1.5, 268, 268*1.5), clamp(72/1.5, 72, 72*1.5)};
+		defaultCenterButtonX = windowWidth/2 - defaultButtonSize.x/2;
+
+		buttonEndGameplayScreenHeight = windowHeight - windowHeight/3;
 		
 		unitX = GetWindowScaleDPI().x / 1000;
 		unitY = GetWindowScaleDPI().y / 1000;

@@ -22,12 +22,23 @@ Texture2D buttonHoverTex;
 Texture2D simplePanel;
 Texture2D victoryPanelTex;
 Texture2D defeatPanelTex;
+Texture2D gameplayPanelTex;
+Texture2D mapFrameTex;
+
+float defaultCenterButtonX;
+Vector2 defaultButtonSize;
+float defaultButtonGap = 20;
+
+float buttonEndGameplayScreenHeight;
+
 
 Button* startScreenButtons[10];
 int countStartScreenButtons = 0;
 
 Button* endGameplayScreenButtons[10];
 int countEndGameplayScreenButtons = 0;
+
+
 
 
 void LoadUITexturePack() {
@@ -66,6 +77,12 @@ void LoadUITexturePack() {
 
     defeatPanelTex = LoadTexture("resources/uiTextures/defeat_panel.png");
     SetTextureFilter(simplePanel, TEXTURE_FILTER_POINT);
+
+    gameplayPanelTex = LoadTexture("resources/uiTextures/gameplay_panel.png");
+    SetTextureFilter(gameplayPanelTex, TEXTURE_FILTER_POINT);
+
+    mapFrameTex = LoadTexture("resources/uiTextures/map_frame.png");
+    SetTextureFilter(mapFrameTex, TEXTURE_FILTER_POINT);
 }
 
 void UnloadUITextures(void) {
@@ -79,6 +96,7 @@ void UnloadUITextures(void) {
     UnloadTexture(simplePanel);
     UnloadTexture(victoryPanelTex);
     UnloadTexture(defeatPanelTex);
+    UnloadTexture(gameplayPanelTex);
 }
 
 void DrawBackground(int n) {
@@ -115,6 +133,12 @@ void DrawSimplePanel(int x, int y, int width) {
     DrawTexturePro(simplePanel, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 }
 
+void DrawGameplayPanel(int x, int y, int width) {
+    Rectangle source = { 0, 0, (float)gameplayPanelTex.width, (float)gameplayPanelTex.height }; //altura do png e largura
+    Rectangle dest   = { (float) x, (float) y, (float) width, (float)((float)gameplayPanelTex.height/(float)gameplayPanelTex.width) * width };
+    DrawTexturePro(gameplayPanelTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
+}
+
 void DrawLogo() {
     Rectangle source = { 0, 0, (float)logoTex.width, (float)logoTex.height }; //altura do png e largura
     Rectangle dest   = { windowWidth/4, windowHeight/10 + 50, (float)windowWidth/2, (float)((float)logoTex.height / (float)logoTex.width)*((float)windowWidth/2.0f) }; //coloca em proporcao
@@ -143,9 +167,7 @@ void createButtons() {
 	startScreenButtons[countStartScreenButtons] = startButton;
 	countStartScreenButtons++;
 
-    int padding = 20;
-
-    Button* playAgainEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2 - padding - buttonTex.width, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "MENU");
+    Button* playAgainEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2 - defaultButtonGap - buttonTex.width, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "DENOVO");
 	endGameplayScreenButtons[countEndGameplayScreenButtons] = playAgainEndGameplayButton;
 	countEndGameplayScreenButtons++;
 
@@ -153,7 +175,7 @@ void createButtons() {
 	endGameplayScreenButtons[countEndGameplayScreenButtons] = backToMenuEndGameplayButton;
 	countEndGameplayScreenButtons++;
 
-    Button* playNextLevelEndGameplayButton = createButton((Rectangle) {windowWidth/2 + buttonTex.width/2 + padding, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "PROXIMA");
+    Button* playNextLevelEndGameplayButton = createButton((Rectangle) {windowWidth/2 + buttonTex.width/2 + defaultButtonGap, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "PROXIMA");
 	endGameplayScreenButtons[countEndGameplayScreenButtons] = playNextLevelEndGameplayButton;
 	countEndGameplayScreenButtons++;
 }
@@ -185,6 +207,13 @@ void DrawButtonText(Button* button) {
     }
 }
 
+void updateButton(Button* button, Rectangle rec) {
+    button->rec->x = rec.x;
+    button->rec->y = rec.y;
+    button->rec->width = rec.width;
+    button->rec->height = rec.height;
+}
+
 void DrawButton(Button* button) {
     //button->rec->x = windowWidth/2 - buttonTex.width/2;
     //button->rec->y = windowHeight - windowHeight/3;
@@ -202,7 +231,13 @@ void goToMenu() {
     currentScreenGameplay = SCREEN_GAMEPLAY_GAMEPLAY;
 }
 
-void verifyMouseButtons(Button* buttons[30], int countButtons) {
+void verifyMouseButtons(Button* buttons[10], int countButtons) {
+    if(countButtons < 0) {
+        return;
+    }
+    if(countButtons > 10) {
+        countButtons = 10;
+    }
     Vector2 mousePos = GetMousePosition();
     for(int i = 0; i < countButtons; i++) {
         if(CheckCollisionPointRec(mousePos, *(buttons[i]->rec))) {
@@ -215,4 +250,5 @@ void verifyMouseButtons(Button* buttons[30], int countButtons) {
         }
     }
 }
+
 

@@ -15,6 +15,8 @@ extern Texture2D buttonHoverTex;
 extern Texture2D simplePanel;
 extern Texture2D victoryPanelTex;
 extern Texture2D defeatPanelTex;
+extern Texture2D gameplayPanelTex;
+extern Texture2D mapFrameTex;
 
 
 
@@ -25,11 +27,31 @@ typedef struct struct_button {
     bool hover;
 } Button;
 
+extern Vector2 defaultButtonSize;
+extern float defaultCenterButtonX;
+extern float defaultButtonGap;
+
+extern float buttonEndGameplayScreenHeight;
+
 extern Button* startScreenButtons[10];
 extern int countStartScreenButtons;
 
 extern Button* endGameplayScreenButtons[10];
 extern int countEndGameplayScreenButtons;
+
+static inline float max_float(float a, float b) {
+    return a > b ? a : b;
+}
+
+static inline float min_float(float a, float b) {
+    return a < b ? a : b;
+}
+
+static inline float clamp(float min, float def, float max) {
+    return max_float(min, min_float(max, def*(float)((float)windowWidth/1500.0f)));
+};
+
+float clamp(float min, float def, float max);
 
 void LoadUITexturePack();
 
@@ -40,6 +62,7 @@ void DrawBackground(int n);
 void DrawBackgroundDarkFilter();
 
 void DrawSimplePanel(int x, int y, int width);
+void DrawGameplayPanel(int x, int y, int width);
 
 void DrawLogo();
 
@@ -53,9 +76,15 @@ void DrawButtonText(Button* button);
 
 void DrawButton(Button* button);
 
+void updateButton(Button* button, Rectangle rec);
+
 void goToMenu();
 
-void verifyMouseButtons(Button* buttons[30], int countButtons);
+void playNextLevel(Level* level);
+
+void playSameLevel(Level* level);
+
+void verifyMouseButtons(Button* buttons[10], int countButtons);
 
 
 #endif

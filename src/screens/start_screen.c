@@ -18,6 +18,7 @@
 void DrawStartScreen() {
     DrawBackground(0);
     DrawLogo();
+    updateButton(startScreenButtons[0], (Rectangle) {defaultCenterButtonX, windowHeight - windowHeight/3, defaultButtonSize.x, defaultButtonSize.y});
     DrawButton(startScreenButtons[0]);
     verifyMouseButtons(startScreenButtons, countStartScreenButtons);
 }

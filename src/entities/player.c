@@ -165,5 +165,5 @@ void getRandomEvent(Player* player, Map* map) {
 }
 
 bool playerWinLevel(Player* player, Level* level) {
-    return player->crystals >= level->minCrystals && level->map->grid[player->y * level->map->width + player->y] == 'f'; 
+    return player->crystals >= level->minCrystals && level->map->grid[player->y * level->map->width + player->x] == 'f'; 
 }

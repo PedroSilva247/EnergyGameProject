@@ -5,6 +5,7 @@
 #include "../../include/config.h"
 #include "../../include/player.h"
 #include "../../include/mapElements.h"
+#include "../../include/ui.h"
 
 
 
@@ -27,12 +28,24 @@ Map* createMap(int width, int height, char* grid, int initialPlayerX, int initia
 }
 
 
+void DrawMapFrame(int width, int x, int y) {
+	Rectangle source = { 0, 0, (float)mapFrameTex.width, (float)mapFrameTex.height }; //altura do png e largura
+    Rectangle dest   = { (float) x, (float) y, (float) width, (float) width };
+    DrawTexturePro(mapFrameTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
+}
 
 
-void DrawMap(Map* map, bool isFinishLineOpened, int width, int y) {
+void DrawMap(Map* map, bool isFinishLineOpened, int frameWidth, int y) {
+	float mapFrameThickness = 20.0f/540.0f * (float) frameWidth;
+
+	float startMapFrameX = windowWidth/2 - frameWidth/2;
+	float startMapFrameY = y;
+
 	
-	startMapX = windowWidth/2 - width/2;
-	startMapY = y;
+	tile = (float)((frameWidth - mapFrameThickness*2) / map->width);
+	
+	startMapX = startMapFrameX + mapFrameThickness;
+	startMapY = startMapFrameY + mapFrameThickness;
 	
 	float currentX = (float)startMapX;
 	float currentY = (float)startMapY;
@@ -69,6 +82,7 @@ void DrawMap(Map* map, bool isFinishLineOpened, int width, int y) {
 		currentX = startMapX;
 		currentY += tile;
 	}
+	DrawMapFrame(frameWidth, startMapFrameX, startMapFrameY);
 }
 
 
