@@ -2,6 +2,9 @@
 #define GAMEPLAY_SCREEN
 
 #include <stdbool.h>
+#include "screen.h"
+
+extern ScreenGameplay currentScreenGameplay;
 
 typedef struct Level Level;
 
@@ -20,5 +23,6 @@ void DrawCrystalsCounter(Player* player, Level* level, int x, int y);
 void DrawRounds(Level* level, int x, int y);
 void DrawRestartHint(void);
 void DrawPlayerEffects(Player* player, Level* level, bool* isPlayerInvisible);
+void finishGame();
 
 #endif

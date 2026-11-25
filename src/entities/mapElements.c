@@ -133,6 +133,9 @@ void updateMapElements(Level* level, Player* player, bool* isFinishLineOpened) {
     if(verifyPlayerTile(player, level->map) == '?') {
 		getRandomEvent(player, level->map);
 	}
+    if(verifyPlayerTile(player, level->map) == 'f' && *isFinishLineOpened) {
+		finishGame();
+	}
 }
 
 

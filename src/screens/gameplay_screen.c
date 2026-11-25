@@ -8,10 +8,13 @@
 #include "../../include/mapElements.h"
 #include "../../include/ui.h"
 #include "../../include/effects.h"
+#include "../../include/screen.h"
 #define N 6
 
 #define MAX_LEVEL_ENERGY 10
 static int confirmingrestart = 0;
+
+ScreenGameplay currentScreenGameplay = SCREEN_GAMEPLAY_GAMEPLAY;
 
 
 void DrawHeader(Player* player, Level* level, int x, int y) {
@@ -69,6 +72,35 @@ void DrawPlayerEffects(Player* player, Level* level, bool* isPlayerInvisible) {
 	}
 }
 
+void finishGame() {
+	currentScreenGameplay = SCREEN_GAMEPLAY_END;
+}
+
+void DrawEndPanel(Player* player, bool win) {
+	Texture2D tex = win ? victoryPanelTex : defeatPanelTex;
+
+	int panelWidth = windowWidth/1.35;
+	int panelHeight = (float)((float)tex.height/(float)tex.width) * panelWidth;
+	int panelX = windowWidth/2 - panelWidth/2;
+	int panelY = windowHeight/2 - panelHeight/2;
+
+
+	Rectangle source = { 0, 0, (float)tex.width, (float)tex.height }; //altura do png e largura
+    Rectangle dest   = { (float) panelX, (float) panelY, (float) panelWidth, (float)((float)tex.height/(float)tex.width) * panelWidth };
+    DrawTexturePro(tex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
+
+	DrawButton(endGameplayScreenButtons[0]);
+	DrawButton(endGameplayScreenButtons[1]);
+	DrawButton(endGameplayScreenButtons[2]);
+}
+
+
+
+void DrawEndScreen(Player* player, Level* level) {
+	DrawBackgroundDarkFilter();
+	DrawEndPanel(player, playerWinLevel(player, level));
+}
+
 
 void DrawGameplayScreen(Level* level, Player* player) {
 	int oldX = player->x;
@@ -94,8 +126,8 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	tile = (float)mapWidth / level->map->width;
 
 	if (!confirmingrestart){
-		verifyKeyboardGameplay(player, level->map);
-		verifyKeyboardScreen();
+		
+		
 	}
 	
 	if (player->x != oldX || player->y != oldY) {
@@ -121,6 +153,19 @@ void DrawGameplayScreen(Level* level, Player* player) {
 
 	if(!isPlayerInvisible) {
 		DrawPlayer(player);
+	}
+
+	switch (currentScreenGameplay) {
+		case SCREEN_GAMEPLAY_END:
+			DrawEndScreen(player, level);
+			verifyMouseButtons(endGameplayScreenButtons, countEndGameplayScreenButtons);
+			break;
+		case SCREEN_GAMEPLAY_CONFIRM_RESTART:
+			verifyKeyboardScreen();
+			break;
+		case SCREEN_GAMEPLAY_GAMEPLAY:
+			verifyKeyboardGameplay(player, level->map);
+			break;
 	}
 
 	if (confirmingrestart){

@@ -7,4 +7,10 @@ typedef enum {
     SCREEN_GAMEPLAY
 } Screen;
 
+typedef enum {
+    SCREEN_GAMEPLAY_GAMEPLAY,
+    SCREEN_GAMEPLAY_END,
+    SCREEN_GAMEPLAY_CONFIRM_RESTART
+} ScreenGameplay;
+
 #endif

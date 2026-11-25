@@ -20,9 +20,14 @@ Texture2D logoTex;
 Texture2D buttonTex;
 Texture2D buttonHoverTex;
 Texture2D simplePanel;
+Texture2D victoryPanelTex;
+Texture2D defeatPanelTex;
 
 Button* startScreenButtons[10];
 int countStartScreenButtons = 0;
+
+Button* endGameplayScreenButtons[10];
+int countEndGameplayScreenButtons = 0;
 
 
 void LoadUITexturePack() {
@@ -55,6 +60,12 @@ void LoadUITexturePack() {
 
     simplePanel = LoadTexture("resources/uiTextures/simple_panel.png");
     SetTextureFilter(simplePanel, TEXTURE_FILTER_POINT);
+
+    victoryPanelTex = LoadTexture("resources/uiTextures/victory_panel.png");
+    SetTextureFilter(simplePanel, TEXTURE_FILTER_POINT);
+
+    defeatPanelTex = LoadTexture("resources/uiTextures/defeat_panel.png");
+    SetTextureFilter(simplePanel, TEXTURE_FILTER_POINT);
 }
 
 void UnloadUITextures(void) {
@@ -66,6 +77,8 @@ void UnloadUITextures(void) {
     UnloadTexture(backgroundDarkTreesTex);
     UnloadTexture(logoTex);
     UnloadTexture(simplePanel);
+    UnloadTexture(victoryPanelTex);
+    UnloadTexture(defeatPanelTex);
 }
 
 void DrawBackground(int n) {
@@ -125,6 +138,26 @@ Button* createButton(Rectangle rec, void (*func) (void), char* str) {
     return newButton;
 }
 
+void createButtons() {
+    Button* startButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "JOGAR");
+	startScreenButtons[countStartScreenButtons] = startButton;
+	countStartScreenButtons++;
+
+    int padding = 20;
+
+    Button* playAgainEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2 - padding - buttonTex.width, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "MENU");
+	endGameplayScreenButtons[countEndGameplayScreenButtons] = playAgainEndGameplayButton;
+	countEndGameplayScreenButtons++;
+
+    Button* backToMenuEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "MENU");
+	endGameplayScreenButtons[countEndGameplayScreenButtons] = backToMenuEndGameplayButton;
+	countEndGameplayScreenButtons++;
+
+    Button* playNextLevelEndGameplayButton = createButton((Rectangle) {windowWidth/2 + buttonTex.width/2 + padding, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "PROXIMA");
+	endGameplayScreenButtons[countEndGameplayScreenButtons] = playNextLevelEndGameplayButton;
+	countEndGameplayScreenButtons++;
+}
+
 void DrawButtonFrame(Rectangle* rec, bool hover) {
     Texture2D frameTex;
     if(hover) {
@@ -153,8 +186,8 @@ void DrawButtonText(Button* button) {
 }
 
 void DrawButton(Button* button) {
-    button->rec->x = windowWidth/2 - buttonTex.width/2;
-    button->rec->y = windowHeight - windowHeight/3;
+    //button->rec->x = windowWidth/2 - buttonTex.width/2;
+    //button->rec->y = windowHeight - windowHeight/3;
 
     DrawButtonFrame(button->rec, button->hover);
     
@@ -166,6 +199,7 @@ void DrawButton(Button* button) {
 
 void goToMenu() {
     currentScreen = SCREEN_MENU;
+    currentScreenGameplay = SCREEN_GAMEPLAY_GAMEPLAY;
 }
 
 void verifyMouseButtons(Button* buttons[30], int countButtons) {
@@ -181,3 +215,4 @@ void verifyMouseButtons(Button* buttons[30], int countButtons) {
         }
     }
 }
+

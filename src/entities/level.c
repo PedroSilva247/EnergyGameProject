@@ -7,7 +7,14 @@
 
 GameplayScreenToDraw* playLevel(Level* level) {
     Player* player = createPlayer(level->map->initialPlayerX, level->map->initialPlayerY, level->initialEnergy, 10.0f, createControlKeys(KEY_W, KEY_A, KEY_S, KEY_D));
-    Level* levelClone = createLevel(level->map, level->initialEnergy, level->maxEnergy, level->minCrystals, level->numLevel);
+    char* gridClone = (char*) malloc(level->map->width*level->map->height*sizeof(char));
+    for(int i = 0; i < level->map->height; i++) {
+        for(int j = 0; j < level->map->width; j++) {
+            gridClone[i*level->map->width + j] = level->map->grid[i*level->map->width + j];
+        }
+    }
+    Map* mapClone = createMap(level->map->width, level->map->height, gridClone, level->map->initialPlayerX, level->map->initialPlayerY);
+    Level* levelClone = createLevel(mapClone, level->initialEnergy, level->maxEnergy, level->minCrystals, level->numLevel);
     GameplayScreenToDraw* gameplayScreenToDraw = (GameplayScreenToDraw*) malloc(sizeof(GameplayScreenToDraw));
     gameplayScreenToDraw->func = DrawGameplayScreen;
     gameplayScreenToDraw->level = levelClone;

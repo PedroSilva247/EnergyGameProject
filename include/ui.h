@@ -13,6 +13,8 @@ extern Texture2D logoTex;
 extern Texture2D buttonTex;
 extern Texture2D buttonHoverTex;
 extern Texture2D simplePanel;
+extern Texture2D victoryPanelTex;
+extern Texture2D defeatPanelTex;
 
 
 
@@ -25,6 +27,9 @@ typedef struct struct_button {
 
 extern Button* startScreenButtons[10];
 extern int countStartScreenButtons;
+
+extern Button* endGameplayScreenButtons[10];
+extern int countEndGameplayScreenButtons;
 
 void LoadUITexturePack();
 
@@ -39,6 +44,8 @@ void DrawSimplePanel(int x, int y, int width);
 void DrawLogo();
 
 Button* createButton(Rectangle rec, void (*func) (void), char* str);
+
+void createButtons();
 
 void DrawButtonFrame(Rectangle* rec, bool hover);
 

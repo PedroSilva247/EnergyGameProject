@@ -93,7 +93,9 @@ void movePlayer(char axis, int step, Map* map, Player* player) {
         player->energy--;
     }
 
-
+    if(player->energy <= 0) {
+        finishGame();
+    }
     
 }
 
@@ -160,4 +162,8 @@ void getRandomEvent(Player* player, Map* map) {
             break;
     }
     map->grid[player->y*map->width + player->x] = 'e';
+}
+
+bool playerWinLevel(Player* player, Level* level) {
+    return player->crystals >= level->minCrystals && level->map->grid[player->y * level->map->width + player->y] == 'f'; 
 }

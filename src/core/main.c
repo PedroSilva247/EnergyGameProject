@@ -37,9 +37,7 @@ int main() {
 	LoadUITexturePack();
 	LoadEffectsTextures();
 	
-	Button* startButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "JOGAR");
-	startScreenButtons[countStartScreenButtons] = startButton;
-	countStartScreenButtons++;
+	createButtons();
 	
 	fontDefault = LoadFontEx("resources/fonts/font_pixel.ttf", 32, 0, 0);
 

@@ -54,4 +54,6 @@ int generateRandomNumber(int min, int max);
 
 void getRandomEvent(Player* player, Map* map);
 
+bool playerWinLevel(Player* player, Level* level);
+
 #endif
