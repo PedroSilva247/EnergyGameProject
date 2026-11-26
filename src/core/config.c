@@ -8,6 +8,9 @@
 int windowWidth = 1000*1.5;
 int windowHeight = 800*1.5;
 
+int countLevels = 0;
+Level** levels;
+
 int buttonTextSize = 36;
 
 int startMapX = 100;

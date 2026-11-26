@@ -167,15 +167,15 @@ void createButtons() {
 	startScreenButtons[countStartScreenButtons] = startButton;
 	countStartScreenButtons++;
 
-    Button* playAgainEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2 - defaultButtonGap - buttonTex.width, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "DENOVO");
+    Button* playAgainEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2 - defaultButtonGap - buttonTex.width, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, playSameLevel, "DENOVO");
 	endGameplayScreenButtons[countEndGameplayScreenButtons] = playAgainEndGameplayButton;
 	countEndGameplayScreenButtons++;
 
-    Button* backToMenuEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "MENU");
+    Button* backToMenuEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, backToMenu, "MENU");
 	endGameplayScreenButtons[countEndGameplayScreenButtons] = backToMenuEndGameplayButton;
 	countEndGameplayScreenButtons++;
 
-    Button* playNextLevelEndGameplayButton = createButton((Rectangle) {windowWidth/2 + buttonTex.width/2 + defaultButtonGap, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "PROXIMA");
+    Button* playNextLevelEndGameplayButton = createButton((Rectangle) {windowWidth/2 + buttonTex.width/2 + defaultButtonGap, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, playNextLevel, "PROXIMA");
 	endGameplayScreenButtons[countEndGameplayScreenButtons] = playNextLevelEndGameplayButton;
 	countEndGameplayScreenButtons++;
 }
@@ -231,6 +231,11 @@ void goToMenu() {
     currentScreenGameplay = SCREEN_GAMEPLAY_GAMEPLAY;
 }
 
+void goToGameplayScreen() {
+    currentScreen = SCREEN_GAMEPLAY;
+    currentScreenGameplay = SCREEN_GAMEPLAY_GAMEPLAY;
+}
+
 void verifyMouseButtons(Button* buttons[10], int countButtons) {
     if(countButtons < 0) {
         return;
@@ -252,3 +257,25 @@ void verifyMouseButtons(Button* buttons[10], int countButtons) {
 }
 
 
+void backToMenu() {
+    freeLevel(currentLevel);
+    goToMenu();
+}
+
+void playNextLevel() {
+    int levelN = currentLevel->numLevel;
+    freeLevel(currentLevel);
+    if(levelN + 1 > countLevels) {
+        goToMenu();
+    } else {
+        gameplayScreenToDraw = playLevel(levels[levelN]);
+        goToGameplayScreen();
+    }
+}
+
+void playSameLevel() {
+    int levelN = currentLevel->numLevel;
+    freeLevel(currentLevel);
+    gameplayScreenToDraw = playLevel(levels[levelN-1]);
+    goToGameplayScreen();
+}

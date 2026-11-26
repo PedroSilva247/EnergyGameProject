@@ -87,3 +87,10 @@ void DrawMap(Map* map, bool isFinishLineOpened, int frameWidth, int y) {
 
 
 
+void freeMap(Map* map) {
+	if(map == NULL) {
+        return;
+    }
+	free(map->grid);
+	free(map);
+}

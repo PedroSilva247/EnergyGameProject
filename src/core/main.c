@@ -87,8 +87,8 @@ int main() {
 
 	Level* level2 = createLevel(map2, 101, 101, 4, 2);
 
-	Level** levels = (Level**) malloc(sizeof(Level*)*100);
-	int countLevels = 0;
+	levels = (Level**) malloc(sizeof(Level*)*100);
+	
 	
 	levels[countLevels] = level1;
 	countLevels++;

@@ -89,9 +89,17 @@ void DrawEndPanel(Player* player, bool win) {
     Rectangle dest   = { (float) panelX, (float) panelY, (float) panelWidth, (float)((float)tex.height/(float)tex.width) * panelWidth };
     DrawTexturePro(tex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 
-	updateButton(endGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX - defaultButtonSize.x - defaultButtonGap, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
-	updateButton(endGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
-	updateButton(endGameplayScreenButtons[2], (Rectangle) {defaultCenterButtonX + defaultButtonSize.x + defaultButtonGap, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+	if(win){
+		updateButton(endGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX - defaultButtonSize.x - defaultButtonGap, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[2], (Rectangle) {defaultCenterButtonX + defaultButtonSize.x + defaultButtonGap, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+	} else {
+		updateButton(endGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX - defaultButtonSize.x/2 - defaultButtonGap/2, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX + defaultButtonSize.x/2 + defaultButtonGap/2, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[2], (Rectangle) {0, 0, 0, 0});
+	}
+
+	
 	for(int i = 0; i < countEndGameplayScreenButtons; i++) {
 		DrawButton(endGameplayScreenButtons[i]);
 	}

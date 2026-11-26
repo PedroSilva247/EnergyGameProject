@@ -16,6 +16,11 @@ extern int buttonTextSize;
 extern int windowWidth;
 extern int windowHeight;
 
+extern int countLevels;
+extern Level** levels;
+
+
+
 extern float unitY;
 extern float unitX;
 extern int trapDamage;

@@ -80,9 +80,11 @@ void updateButton(Button* button, Rectangle rec);
 
 void goToMenu();
 
-void playNextLevel(Level* level);
+void backToMenu();
 
-void playSameLevel(Level* level);
+void playNextLevel();
+
+void playSameLevel();
 
 void verifyMouseButtons(Button* buttons[10], int countButtons);
 

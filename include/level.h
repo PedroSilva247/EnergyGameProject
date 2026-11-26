@@ -15,11 +15,13 @@ typedef struct Level {
     int numLevel;
 } Level;
 
-
+extern Level* currentLevel;
 
 
 GameplayScreenToDraw* playLevel(Level* level);
 
 Level* createLevel(Map* map, int initialEnergy, int maxEnergy, int minCrystals, int numLevel);
+
+void freeLevel(Level* level);
 
 #endif
