@@ -17,6 +17,7 @@ extern Music gameMusic;
 void LoadSounds(void);
 void UnloadSounds(void);
 void UpdateMusic(void);
+void setVolumes(void);
 
 
 #endif

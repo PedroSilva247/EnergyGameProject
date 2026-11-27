@@ -36,6 +36,17 @@ void UnloadSounds(void){
     UnloadMusicStream(gameMusic);
 }
 
+void setVolumes() {
+    SetMusicVolume(menuMusic, 0.5f);
+    SetMusicVolume(gameMusic, 0.5f);
+
+    SetSoundVolume(crystalSound, 0.6f);
+    SetSoundVolume(defeatSound, 0.6f);
+    SetSoundVolume(selectSound, 0.6f);
+    SetSoundVolume(finishLineSound, 0.6f);
+    SetSoundVolume(recoverSound, 0.6f);
+}
+
 void UpdateMusic(void){
     if (currentScreen == SCREEN_GAMEPLAY){
         if (IsMusicStreamPlaying(menuMusic)) {

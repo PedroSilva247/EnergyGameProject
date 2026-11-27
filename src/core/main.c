@@ -30,16 +30,19 @@ int main() {
 
     InitWindow(windowWidth, windowHeight, "EnergyGame");
 	InitAudioDevice();
-	LoadSounds();
+	
 
 	
 	currentScreen = SCREEN_START;
 	
 	char folder[30] = "forestTextures";
-	
+
+	LoadSounds();
 	LoadMapTexturePack(folder);
 	LoadUITexturePack();
 	LoadEffectsTextures();
+
+	setVolumes();
 	
 	createButtons();
 	
