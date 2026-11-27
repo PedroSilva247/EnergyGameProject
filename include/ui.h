@@ -61,6 +61,8 @@ void DrawBackground(int n);
 
 void DrawBackgroundDarkFilter();
 
+void DrawPlayerPortrait(int headerY);
+
 void DrawSimplePanel(int x, int y, int width);
 void DrawGameplayPanel(int x, int y, int width);
 

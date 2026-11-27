@@ -26,6 +26,7 @@ Texture2D victoryPanelTex;
 Texture2D defeatPanelTex;
 Texture2D gameplayPanelTex;
 Texture2D mapFrameTex;
+Texture2D playerPortraitTex;
 
 float defaultCenterButtonX;
 Vector2 defaultButtonSize;
@@ -85,6 +86,9 @@ void LoadUITexturePack() {
 
     mapFrameTex = LoadTexture("resources/uiTextures/map_frame.png");
     SetTextureFilter(mapFrameTex, TEXTURE_FILTER_POINT);
+
+    playerPortraitTex = LoadTexture("resources/uiTextures/retrato.png");
+    SetTextureFilter(playerPortraitTex, TEXTURE_FILTER_POINT);
 }
 
 void UnloadUITextures(void) {
@@ -99,6 +103,7 @@ void UnloadUITextures(void) {
     UnloadTexture(victoryPanelTex);
     UnloadTexture(defeatPanelTex);
     UnloadTexture(gameplayPanelTex);
+    UnloadTexture(playerPortraitTex);
 }
 
 void DrawBackground(int n) {
@@ -145,6 +150,19 @@ void DrawLogo() {
     Rectangle source = { 0, 0, (float)logoTex.width, (float)logoTex.height }; //altura do png e largura
     Rectangle dest   = { windowWidth/4, windowHeight/10 + 50, (float)windowWidth/2, (float)((float)logoTex.height / (float)logoTex.width)*((float)windowWidth/2.0f) }; //coloca em proporcao
     DrawTexturePro(logoTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
+}
+
+void DrawPlayerPortrait(int headerY) {
+
+    
+
+    float widthPortrait = windowWidth / 10;
+    float heightPortrait = (playerPortraitTex.height / playerPortraitTex.width) * widthPortrait;
+
+    Rectangle source = { 0, 0, (float)playerPortraitTex.width, (float)playerPortraitTex.height };
+
+    Rectangle dest   = { windowWidth / 2 - widthPortrait/ 2,  headerY, widthPortrait , heightPortrait};
+    DrawTexturePro(playerPortraitTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE);
 }
 
 Button* createButton(Rectangle rec, void (*func) (void), char* str) {
