@@ -7,6 +7,7 @@
 #include "../../include/config.h"
 #include "../../include/screen.h"
 #include "../../include/ui.h"
+#include "../../include/sound.h"
 
 #define LEVEL_SQUARE_SIZE (windowWidth / 15.0f)
 
@@ -82,6 +83,7 @@ void verifyMouseMenu(LevelSquare** levelSquares, int countLevels) {
     for(int i = 0; i < countLevels; i++) {
         if(CheckCollisionPointRec(mousePos, *(levelSquares[i]->rec))) {
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+                PlaySound(selectSound);
                 gameplayScreenToDraw = playLevel(levelSquares[i]->level);
                 currentScreen = SCREEN_GAMEPLAY;
             }

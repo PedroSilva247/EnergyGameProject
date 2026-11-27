@@ -14,6 +14,8 @@
 #include "../../include/config.h"
 #include "../../include/ui.h"
 #include "../../include/effects.h"
+#include "../../include/sound.h"
+
 
 
 #define N 6
@@ -27,6 +29,8 @@ int main() {
 	srand((unsigned int)time(NULL));
 
     InitWindow(windowWidth, windowHeight, "EnergyGame");
+	InitAudioDevice();
+	LoadSounds();
 
 	
 	currentScreen = SCREEN_START;
@@ -114,6 +118,8 @@ int main() {
 
     SetTargetFPS(120);
 	while(!WindowShouldClose()) {
+		
+		UpdateMusic();
 
 		windowWidth = GetScreenWidth();
 		windowHeight = GetScreenHeight();
@@ -153,6 +159,8 @@ int main() {
 	UnloadMapTextures();
 	UnloadUITextures();
 	UnloadEffectsTextures();
+	UnloadSounds();
+	CloseAudioDevice();
 
 	CloseWindow();
     return 0;

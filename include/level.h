@@ -1,6 +1,7 @@
 #ifndef LEVEL
 #define LEVEL
 
+#include <stdbool.h>
 #include "map.h"
 // #include "gameplay_screen.h"
 
@@ -13,6 +14,7 @@ typedef struct Level {
     int round;
     int minCrystals;
     int numLevel;
+    bool finishLineSoundPlayed;
 } Level;
 
 extern Level* currentLevel;

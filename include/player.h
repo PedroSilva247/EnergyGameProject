@@ -25,7 +25,7 @@ typedef struct Player {
     ControlKeys* controlKeys;
     Vector2* positionPixel;
     Texture2D sprites[4];
-    int direction; //Load dos sprites do player
+    int direction; 
     char effects[MAX_EFFECTS][20];
     int nEffects;
 } Player;

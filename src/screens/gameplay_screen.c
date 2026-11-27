@@ -175,7 +175,7 @@ void DrawGameplayScreen(Level* level, Player* player) {
 			break;
 		case SCREEN_GAMEPLAY_GAMEPLAY:
 			verifyKeyboardGameplay(player, level->map);
-			break;
+			break;	
 	}
 
 	if (confirmingrestart){

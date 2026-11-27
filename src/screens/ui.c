@@ -9,6 +9,8 @@
 #include "../../include/screen.h"
 #include "../../include/menu_screen.h"
 #include "../../include/ui.h"
+#include "../../include/sound.h"
+
 
 Texture2D levelButtonFrameTex;
 Texture2D levelButtonFrameHoverTex;
@@ -248,6 +250,7 @@ void verifyMouseButtons(Button* buttons[10], int countButtons) {
         if(CheckCollisionPointRec(mousePos, *(buttons[i]->rec))) {
             if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
                 buttons[i]->func();
+                PlaySound(selectSound);
             }
             buttons[i]->hover = true;
         } else {

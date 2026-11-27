@@ -11,6 +11,7 @@
 #include "../../include/gameplay_screen.h"
 #include "../../include/mapElements.h"
 #include "../../include/effects.h"
+#include "../../include/sound.h"
 
 
 Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* controlKeys) {
@@ -131,6 +132,7 @@ char verifyPlayerTile(Player* player, Map* map) {
 void getCrystal(Player* player, Map* map) {
     player->crystals ++;
     map->grid[player->y*map->width + player->x] = 'e';
+    PlaySound(crystalSound);
 }
 
 void hitTrap(Player* player, Map* map) {
@@ -143,6 +145,7 @@ void hitTrap(Player* player, Map* map) {
 
 void getRecover(Player* player, Level* level) {
     player->energy += recoverEnergy;
+    PlaySound(recoverSound);
     if(player->energy > level->maxEnergy) {
         if(recoverHealsMoreThanMax) {
             level->maxEnergy = player->energy;

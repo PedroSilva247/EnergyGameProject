@@ -7,6 +7,7 @@
 #include "../../include/map.h"
 #include "../../include/player.h"
 #include "../../include/level.h"
+#include "../../include/sound.h"
 
 static Texture2D crystalTex;
 static Texture2D recoverTex;
@@ -119,6 +120,10 @@ void DrawRandomEvent(float x, float y) {
 void updateMapElements(Level* level, Player* player, bool* isFinishLineOpened) {
     if(player->crystals >= level->minCrystals) {
         *isFinishLineOpened = true;
+        if (!level->finishLineSoundPlayed) {
+            PlaySound(finishLineSound);
+            level->finishLineSoundPlayed = true;
+        }
     }
 
 	if(verifyPlayerTile(player, level->map) == 'c') {

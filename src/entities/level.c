@@ -40,6 +40,7 @@ Level* createLevel(Map* map, int initialEnergy, int maxEnergy, int minCrystals, 
     level->round = 0;
     level->minCrystals = minCrystals;
     level->numLevel = numLevel;
+    level->finishLineSoundPlayed = false;
 
 	return level;
 }
