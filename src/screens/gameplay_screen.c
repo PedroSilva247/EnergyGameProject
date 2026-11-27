@@ -9,10 +9,13 @@
 #include "../../include/ui.h"
 #include "../../include/effects.h"
 #include "../../include/screen.h"
+#include "../../include/sound.h"
 #define N 6
 
 #define MAX_LEVEL_ENERGY 10
 static int confirmingrestart = 0;
+
+
 
 ScreenGameplay currentScreenGameplay = SCREEN_GAMEPLAY_GAMEPLAY;
 
@@ -21,6 +24,7 @@ void DrawHeader(Player* player, Level* level, int x, int y) {
 	DrawEnergy(player, level, x, y);
 	DrawCrystalsCounter(player, level, x, y + 30);
 	DrawRounds(level, x, y + 60);
+	DrawPlayerPortrait(y);
 }
 void DrawEnergy(Player* player, Level* level, int x, int y) {
 	DrawRectangleLinesEx((Rectangle) {x, y, windowWidth/6, 24}, 5.0F, BLACK);
@@ -185,7 +189,7 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	int headerX = panelX + panelInlinePadding;
 	int headerY = panelY + panelBlockPadding;
 
-	int mapY = headerY + 76 + 20;	// o segundo numero é o espaco entre a terceira linha do header e o mapa
+	int mapY = headerY + 76 + 50;	// o segundo numero é o espaco entre a terceira linha do header e o mapa
 	int mapWidth = panelHeight - (mapY - panelY) - panelBlockPadding;
 
 	bool isPlayerInvisible = false;
