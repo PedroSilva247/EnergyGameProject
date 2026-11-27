@@ -22,9 +22,12 @@ Player* createPlayer(int x, int y, int energy, float radius, ControlKeys* contro
     player->crystals = 0;
     player->radius = radius;
     player->controlKeys = controlKeys;
-    player->sprite = LoadTexture("resources/player.png"); //faz o load do sprite
-    SetTextureFilter(player->sprite, TEXTURE_FILTER_POINT); //adapta para pixel art
-    
+    player->sprites[DIR_DOWN]= LoadTexture("resources/player_pokemon/player_down.png");
+    player->sprites[DIR_UP]= LoadTexture("resources/player_pokemon/player_up.png");
+    player->sprites[DIR_RIGHT]= LoadTexture("resources/player_pokemon/player_right.png");
+    player->sprites[DIR_LEFT]= LoadTexture("resources/player_pokemon/player_left.png");
+    for (int i =0; i < 4; i++) SetTextureFilter(player->sprites[i], TEXTURE_FILTER_POINT);
+    player->direction = DIR_DOWN;
     positionPixel->x = startMapX + (x * tile) + (tile / 2);
     positionPixel->y = startMapY + (y * tile) + (tile / 2);
     
@@ -49,13 +52,14 @@ ControlKeys* createControlKeys(int keyUp, int keyLeft, int keyDown, int keyRight
 }
 
 void DrawPlayer(Player* player) {
-    Rectangle source = { 0, 0, (float)player->sprite.width, (float)player->sprite.height };
+    Texture2D tex = player->sprites[player->direction];
+    Rectangle source = { 0, 0, (float)tex.width, (float)tex.height };
     Rectangle dest = {
         player->positionPixel->x - tile / 2.0f,
         player->positionPixel->y - tile / 2.0f,
         (float)tile, (float)tile
     };
-    DrawTexturePro(player->sprite, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE);
+    DrawTexturePro(tex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE);
 }
 
 
@@ -81,12 +85,14 @@ void movePlayer(char axis, int step, Map* map, Player* player) {
             if(isWalkable(map, x + step, y)) {
                 player->x += step;
             } else {
+                //DrawText("Obstaculo no Caminho", ) //colocar as coordenadas
                 return;
             }
         } else if(axis == 'y') {
             if(isWalkable(map, x, y + step)) {
                 player->y += step;
             } else {
+                //DrawText("Obstaculo no Caminho", ) //colocar as coordenadas
                 return;
             }
         }
@@ -102,15 +108,19 @@ void movePlayer(char axis, int step, Map* map, Player* player) {
 void verifyKeyboardGameplay(Player* player, Map* map) {
     if (IsKeyPressed(player->controlKeys->keyDown)){
         movePlayer('y', 1, map, player);
+        player->direction = DIR_DOWN;
     }
     if (IsKeyPressed(player->controlKeys->keyUp)){
         movePlayer('y', -1, map, player);
+        player->direction = DIR_UP;
     }
     if (IsKeyPressed(player->controlKeys->keyRight)){
         movePlayer('x', 1, map, player);
+        player->direction = DIR_RIGHT;
     }
     if (IsKeyPressed(player->controlKeys->keyLeft)){
         movePlayer('x', -1, map, player);
+        player->direction = DIR_LEFT;
     }  
 }
 

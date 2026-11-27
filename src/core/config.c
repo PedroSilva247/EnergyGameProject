@@ -5,8 +5,8 @@
 
 
 
-int windowWidth = 1000*1.5;
-int windowHeight = 800*1.5;
+int windowWidth = 1200;
+int windowHeight = 960;
 
 int countLevels = 0;
 Level** levels;

@@ -14,6 +14,8 @@ typedef struct {
     int keyUp, keyDown, keyLeft, keyRight;
 } ControlKeys;
 
+
+typedef enum {DIR_UP, DIR_DOWN, DIR_RIGHT, DIR_LEFT};
 typedef struct Player {
 	int x;
 	int y;
@@ -22,7 +24,8 @@ typedef struct Player {
     float radius;
     ControlKeys* controlKeys;
     Vector2* positionPixel;
-    Texture2D sprite; //Load dos sprites do player
+    Texture2D sprites[4];
+    int direction; //Load dos sprites do player
     char effects[MAX_EFFECTS][20];
     int nEffects;
 } Player;
