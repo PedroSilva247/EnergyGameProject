@@ -106,24 +106,7 @@ void movePlayer(char axis, int step, Map* map, Player* player) {
     
 }
 
-void verifyKeyboardGameplay(Player* player, Map* map) {
-    if (IsKeyPressed(player->controlKeys->keyDown)){
-        movePlayer('y', 1, map, player);
-        player->direction = DIR_DOWN;
-    }
-    if (IsKeyPressed(player->controlKeys->keyUp)){
-        movePlayer('y', -1, map, player);
-        player->direction = DIR_UP;
-    }
-    if (IsKeyPressed(player->controlKeys->keyRight)){
-        movePlayer('x', 1, map, player);
-        player->direction = DIR_RIGHT;
-    }
-    if (IsKeyPressed(player->controlKeys->keyLeft)){
-        movePlayer('x', -1, map, player);
-        player->direction = DIR_LEFT;
-    }  
-}
+
 
 char verifyPlayerTile(Player* player, Map* map) {
     return map->grid[player->y*map->width + player->x];

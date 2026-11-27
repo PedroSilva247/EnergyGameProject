@@ -26,12 +26,14 @@ Texture2D victoryPanelTex;
 Texture2D defeatPanelTex;
 Texture2D gameplayPanelTex;
 Texture2D mapFrameTex;
+Texture2D pausePanelTex;
 
 float defaultCenterButtonX;
+float defaultCenterButtonY;
 Vector2 defaultButtonSize;
 float defaultButtonGap = 20;
 
-float buttonEndGameplayScreenHeight;
+float buttonEndGameplayScreenY;
 
 
 Button* startScreenButtons[10];
@@ -39,6 +41,9 @@ int countStartScreenButtons = 0;
 
 Button* endGameplayScreenButtons[10];
 int countEndGameplayScreenButtons = 0;
+
+Button* pauseGameplayScreenButtons[10];
+int countPauseGameplayScreenButtons = 0;
 
 
 
@@ -85,6 +90,9 @@ void LoadUITexturePack() {
 
     mapFrameTex = LoadTexture("resources/uiTextures/map_frame.png");
     SetTextureFilter(mapFrameTex, TEXTURE_FILTER_POINT);
+
+    pausePanelTex = LoadTexture("resources/uiTextures/pause_panel.png");
+    SetTextureFilter(pausePanelTex, TEXTURE_FILTER_POINT);
 }
 
 void UnloadUITextures(void) {
@@ -99,6 +107,7 @@ void UnloadUITextures(void) {
     UnloadTexture(victoryPanelTex);
     UnloadTexture(defeatPanelTex);
     UnloadTexture(gameplayPanelTex);
+    UnloadTexture(pausePanelTex);
 }
 
 void DrawBackground(int n) {
@@ -165,9 +174,12 @@ Button* createButton(Rectangle rec, void (*func) (void), char* str) {
 }
 
 void createButtons() {
+    // START
     Button* startButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, goToMenu, "JOGAR");
 	startScreenButtons[countStartScreenButtons] = startButton;
 	countStartScreenButtons++;
+
+    // GAMEPLAY END
 
     Button* playAgainEndGameplayButton = createButton((Rectangle) {windowWidth/2 - buttonTex.width/2 - defaultButtonGap - buttonTex.width, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, playSameLevel, "DENOVO");
 	endGameplayScreenButtons[countEndGameplayScreenButtons] = playAgainEndGameplayButton;
@@ -180,6 +192,20 @@ void createButtons() {
     Button* playNextLevelEndGameplayButton = createButton((Rectangle) {windowWidth/2 + buttonTex.width/2 + defaultButtonGap, windowHeight - windowHeight/3, buttonTex.width, buttonTex.height}, playNextLevel, "PROXIMA");
 	endGameplayScreenButtons[countEndGameplayScreenButtons] = playNextLevelEndGameplayButton;
 	countEndGameplayScreenButtons++;
+
+    // GAMEPLAY PAUSE
+
+    Button* resumePauseGameplayButton = createButton((Rectangle) {defaultCenterButtonX, defaultCenterButtonY - defaultButtonGap - defaultButtonSize.y, defaultButtonSize.x, defaultButtonSize.y}, backToGameplay, "CONTINUAR");
+	pauseGameplayScreenButtons[countPauseGameplayScreenButtons] = resumePauseGameplayButton;
+	countPauseGameplayScreenButtons++;
+
+    Button* giveUpPauseGameplayButton = createButton((Rectangle) {defaultCenterButtonX, defaultCenterButtonY, defaultButtonSize.x, defaultButtonSize.y}, finishGame, "DESISTIR");
+	pauseGameplayScreenButtons[countPauseGameplayScreenButtons] = giveUpPauseGameplayButton;
+	countPauseGameplayScreenButtons++;
+
+    Button* menuLevelPauseGameplayButton = createButton((Rectangle) {defaultCenterButtonX, defaultCenterButtonY + defaultButtonGap + defaultButtonSize.y, defaultButtonSize.x, defaultButtonSize.y}, backToMenu, "MENU");
+	pauseGameplayScreenButtons[countPauseGameplayScreenButtons] = menuLevelPauseGameplayButton;
+	countPauseGameplayScreenButtons++;
 }
 
 void DrawButtonFrame(Rectangle* rec, bool hover) {

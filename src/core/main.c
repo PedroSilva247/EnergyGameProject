@@ -31,7 +31,7 @@ int main() {
     InitWindow(windowWidth, windowHeight, "EnergyGame");
 	InitAudioDevice();
 	
-
+	SetExitKey(KEY_NULL);
 	
 	currentScreen = SCREEN_START;
 	
@@ -130,8 +130,9 @@ int main() {
 		buttonTextSize = clamp(10.0f, 36.0f, 40.0f);
 		defaultButtonSize = (Vector2) {clamp(268/1.5, 268, 268*1.5), clamp(72/1.5, 72, 72*1.5)};
 		defaultCenterButtonX = windowWidth/2 - defaultButtonSize.x/2;
+		defaultCenterButtonY = windowHeight/2 - defaultButtonSize.y/2;
 
-		buttonEndGameplayScreenHeight = windowHeight - windowHeight/3;
+		buttonEndGameplayScreenY = windowHeight - windowHeight/3;
 		
 		unitX = GetWindowScaleDPI().x / 1000;
 		unitY = GetWindowScaleDPI().y / 1000;

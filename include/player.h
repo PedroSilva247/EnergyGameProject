@@ -43,8 +43,6 @@ void updatePlayer(Player* player);
 
 void movePlayer(char axis, int step, Map* map, Player* player);
 
-void verifyKeyboardGameplay(Player* player, Map* map);
-
 char verifyPlayerTile(Player* player, Map* map);
 
 void getCrystal(Player* player, Map* map);

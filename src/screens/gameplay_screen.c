@@ -85,17 +85,17 @@ void DrawEndPanel(Player* player, bool win) {
 	int panelY = windowHeight/2 - panelHeight/2;
 
 
-	Rectangle source = { 0, 0, (float)tex.width, (float)tex.height }; //altura do png e largura
+	Rectangle source = { 0, 0, (float)tex.width, (float)tex.height };
     Rectangle dest   = { (float) panelX, (float) panelY, (float) panelWidth, (float)((float)tex.height/(float)tex.width) * panelWidth };
-    DrawTexturePro(tex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
+    DrawTexturePro(tex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE);
 
 	if(win){
-		updateButton(endGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX - defaultButtonSize.x - defaultButtonGap, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
-		updateButton(endGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
-		updateButton(endGameplayScreenButtons[2], (Rectangle) {defaultCenterButtonX + defaultButtonSize.x + defaultButtonGap, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX - defaultButtonSize.x - defaultButtonGap, buttonEndGameplayScreenY, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX, buttonEndGameplayScreenY, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[2], (Rectangle) {defaultCenterButtonX + defaultButtonSize.x + defaultButtonGap, buttonEndGameplayScreenY, defaultButtonSize.x, defaultButtonSize.y});
 	} else {
-		updateButton(endGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX - defaultButtonSize.x/2 - defaultButtonGap/2, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
-		updateButton(endGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX + defaultButtonSize.x/2 + defaultButtonGap/2, buttonEndGameplayScreenHeight, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX - defaultButtonSize.x/2 - defaultButtonGap/2, buttonEndGameplayScreenY, defaultButtonSize.x, defaultButtonSize.y});
+		updateButton(endGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX + defaultButtonSize.x/2 + defaultButtonGap/2, buttonEndGameplayScreenY, defaultButtonSize.x, defaultButtonSize.y});
 		updateButton(endGameplayScreenButtons[2], (Rectangle) {0, 0, 0, 0});
 	}
 
@@ -110,6 +110,62 @@ void DrawEndPanel(Player* player, bool win) {
 void DrawEndScreen(Player* player, Level* level) {
 	DrawBackgroundDarkFilter();
 	DrawEndPanel(player, playerWinLevel(player, level));
+}
+
+void DrawPausePanel() {
+	int panelWidth = windowWidth/1.6;
+	int panelHeight = (float)((float)pausePanelTex.height/(float)pausePanelTex.width) * panelWidth;
+	int panelX = windowWidth/2 - panelWidth/2;
+	int panelY = windowHeight/2 - panelHeight/2;
+
+	Rectangle source = { 0, 0, (float)pausePanelTex.width, (float)pausePanelTex.height };
+    Rectangle dest   = { (float) panelX, (float) panelY, (float) panelWidth, (float)((float)pausePanelTex.height/(float)pausePanelTex.width) * panelWidth };
+    DrawTexturePro(pausePanelTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE);
+
+	updateButton(pauseGameplayScreenButtons[0], (Rectangle) {defaultCenterButtonX, defaultCenterButtonY - 2*defaultButtonGap - defaultButtonSize.y + windowHeight/30, defaultButtonSize.x, defaultButtonSize.y});
+	updateButton(pauseGameplayScreenButtons[1], (Rectangle) {defaultCenterButtonX, defaultCenterButtonY + windowHeight/30, defaultButtonSize.x, defaultButtonSize.y});
+	updateButton(pauseGameplayScreenButtons[2], (Rectangle) {defaultCenterButtonX, defaultCenterButtonY + 2*defaultButtonGap + defaultButtonSize.y + windowHeight/30, defaultButtonSize.x, defaultButtonSize.y});
+
+	for(int i = 0; i < countPauseGameplayScreenButtons; i++) {
+		DrawButton(pauseGameplayScreenButtons[i]);
+	}
+}
+
+void DrawPauseScreen() {
+	DrawBackgroundDarkFilter();
+	DrawPausePanel();
+}
+
+void backToGameplay() {
+	currentScreenGameplay = SCREEN_GAMEPLAY_GAMEPLAY;
+}
+
+void verifyKeyboardPause() {
+	if(IsKeyPressed(KEY_ESCAPE)) {
+		backToGameplay();
+	}
+}
+
+void verifyKeyboardGameplay(Player* player, Map* map) {
+    if (IsKeyPressed(player->controlKeys->keyDown)){
+        movePlayer('y', 1, map, player);
+        player->direction = DIR_DOWN;
+    }
+    if (IsKeyPressed(player->controlKeys->keyUp)){
+        movePlayer('y', -1, map, player);
+        player->direction = DIR_UP;
+    }
+    if (IsKeyPressed(player->controlKeys->keyRight)){
+        movePlayer('x', 1, map, player);
+        player->direction = DIR_RIGHT;
+    }
+    if (IsKeyPressed(player->controlKeys->keyLeft)){
+        movePlayer('x', -1, map, player);
+        player->direction = DIR_LEFT;
+    }  
+	if (IsKeyPressed(KEY_ESCAPE)){
+        currentScreenGameplay = SCREEN_GAMEPLAY_PAUSE;
+    }  
 }
 
 
@@ -137,7 +193,6 @@ void DrawGameplayScreen(Level* level, Player* player) {
 	
 
 	if (!confirmingrestart){
-		
 		
 	}
 	
@@ -169,6 +224,11 @@ void DrawGameplayScreen(Level* level, Player* player) {
 		case SCREEN_GAMEPLAY_END:
 			DrawEndScreen(player, level);
 			verifyMouseButtons(endGameplayScreenButtons, countEndGameplayScreenButtons);
+			break;
+		case SCREEN_GAMEPLAY_PAUSE:
+			DrawPauseScreen();
+			verifyMouseButtons(pauseGameplayScreenButtons, countPauseGameplayScreenButtons);
+			verifyKeyboardPause();
 			break;
 		case SCREEN_GAMEPLAY_CONFIRM_RESTART:
 			verifyKeyboardScreen();

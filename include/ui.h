@@ -17,6 +17,7 @@ extern Texture2D victoryPanelTex;
 extern Texture2D defeatPanelTex;
 extern Texture2D gameplayPanelTex;
 extern Texture2D mapFrameTex;
+extern Texture2D pausePanelTex;
 
 
 
@@ -29,15 +30,19 @@ typedef struct struct_button {
 
 extern Vector2 defaultButtonSize;
 extern float defaultCenterButtonX;
+extern float defaultCenterButtonY;
 extern float defaultButtonGap;
 
-extern float buttonEndGameplayScreenHeight;
+extern float buttonEndGameplayScreenY;
 
 extern Button* startScreenButtons[10];
 extern int countStartScreenButtons;
 
 extern Button* endGameplayScreenButtons[10];
 extern int countEndGameplayScreenButtons;
+
+extern Button* pauseGameplayScreenButtons[10];
+extern int countPauseGameplayScreenButtons;
 
 static inline float max_float(float a, float b) {
     return a > b ? a : b;
