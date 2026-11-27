@@ -24,4 +24,6 @@ Level* createLevel(Map* map, int initialEnergy, int maxEnergy, int minCrystals, 
 
 void freeLevel(Level* level);
 
+void readLevels();
+
 #endif

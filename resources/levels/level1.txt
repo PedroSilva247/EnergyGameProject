@@ -1,0 +1,20 @@
+15 15
+###############
+#eee#ete#ceeee#
+###e#e#e#####e#
+#?ee#e#eeeetee#
+#?###e#e#####r#
+#er??e#eee#eee#
+#######e#e#e###
+#eeeef#e#?ee#c#
+#e#####e###e#t#
+#teeee#eee#eee#
+#e###t###t#e#r#
+#e#c#eec#eee#e#
+#e#e#e#######e#
+#eeeeeeeeeeeee#
+###############
+1 1
+147
+147
+4

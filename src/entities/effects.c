@@ -5,7 +5,7 @@
 #include "../../include/config.h"
 #include "../../include/player.h"
 
-#define BLINDNESS_DISTANCE 1
+#define BLINDNESS_DISTANCE 3
 
 static Texture2D blindnessFadeTex;
 
@@ -41,8 +41,34 @@ void DrawBlindness(int mapWidth, int mapHeight, int playerX, int playerY, Vector
         currentY += tile;
     }
 
-    Rectangle source = { 0, 0, (float)blindnessFadeTex.width, (float)blindnessFadeTex.height }; //altura do png e largura
-    Rectangle dest   = { (float)playerPositionPixel->x - (tile * (0.5 + BLINDNESS_DISTANCE)), (float)playerPositionPixel->y - (tile * (0.5 + BLINDNESS_DISTANCE)), (float)tile * (1 + 2*BLINDNESS_DISTANCE), (float)tile * (1 + 2*BLINDNESS_DISTANCE) }; //preencher o tile
+    float sourceWidth = blindnessFadeTex.width, sourceHeigth = blindnessFadeTex.height, sourceX = 0, sourceY = 0;
+    float destWidth = (float)tile * (1 + 2*BLINDNESS_DISTANCE), destHeigth = (float)tile * (1 + 2*BLINDNESS_DISTANCE), destX = (float)playerPositionPixel->x - (tile * (0.5 + BLINDNESS_DISTANCE)), destY = (float)playerPositionPixel->y - (tile * (0.5 + BLINDNESS_DISTANCE));
+
+    float sourceTile = blindnessFadeTex.width / (BLINDNESS_DISTANCE*2 + 1);
+    if(playerY < BLINDNESS_DISTANCE) {
+        sourceHeigth = (BLINDNESS_DISTANCE + 1 + playerY)*sourceTile;
+        sourceY = blindnessFadeTex.height - sourceHeigth;
+        destHeigth = (float)tile * (BLINDNESS_DISTANCE + 1 + playerY);
+        destY = (float)playerPositionPixel->y - (tile * (0.5 + playerY));
+    }
+    if(playerY > mapHeight - 1 - BLINDNESS_DISTANCE) {
+        sourceHeigth = (BLINDNESS_DISTANCE + 1 + (mapHeight - 1 - playerY))*sourceTile;
+        destHeigth = (float)tile * (BLINDNESS_DISTANCE + 1 + (mapHeight - 1 - playerY));
+    }
+    if(playerX < BLINDNESS_DISTANCE) {
+        sourceWidth = (BLINDNESS_DISTANCE + 1 + playerX)*sourceTile;
+        sourceX = blindnessFadeTex.width - sourceWidth;
+        destWidth = (float)tile * (BLINDNESS_DISTANCE + 1 + playerX);
+        destX = (float)playerPositionPixel->x - (tile * (0.5 + playerX));
+    }
+    if(playerX > mapWidth - 1 - BLINDNESS_DISTANCE) {
+        sourceWidth = (BLINDNESS_DISTANCE + 1 + (mapWidth - 1 - playerX))*sourceTile;
+        destWidth = (float)tile * (BLINDNESS_DISTANCE + 1 + (mapWidth - 1 - playerX));
+    }
+
+
+    Rectangle source = { sourceX, sourceY, (float)sourceWidth, (float)sourceHeigth }; //altura do png e largura
+    Rectangle dest   = { destX, destY, destWidth, destHeigth }; //preencher o tile
     DrawTexturePro(blindnessFadeTex, source, dest, (Vector2){ 0, 0 }, 0.0f, WHITE); //adapta a pixelart para quaisquer alteracoes na resolucao da tela
 
 }

@@ -1,0 +1,17 @@
+width height
+############
+#ectrf?eeee#
+#eeeeeeeeee#
+#eeeeeeeeee#
+#eeeeeeeeee#
+#eeeeeeeeee#
+#eeeeeeeeee#
+#eeeeeeeeee#
+#eeeeeeeeee#
+#eeeeeeeeee#
+#eeeeeeeeee#
+############
+initialPlayerX initialPlayerY
+initialEnergy
+maxEnergy
+minCrystals

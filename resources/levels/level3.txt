@@ -1,0 +1,36 @@
+31 31
+###############################
+#e#f#eeere#teeeeeeetee#eeeeeee#
+#e#e#e#e#e#e#e###e#e###e#####e#
+#e#e#t#?#eee#eee#c#eee#eec#eee#
+#e#e#e#e#e###e#t###e#e#e###t#e#
+#e#e#e#e#e#eee#e#eee#eee#eee#e#
+#e#e#e#e###e###e#e#######e###e#
+#e#tee#e#eetec#eee#eetee#eee#e#
+#e#e###e#e#########e###e###e#e#
+#e#eec#eeeee#ee?eeee#e#ereeeee#
+#e#####e#####e###e#e#e#######e#
+#eeeee#e#eeeee#eee#t#eeeee#eee#
+#####e###t#####e###e#e#e###e###
+#eeee?#eeeeeee#e#eee#c#eeeee#c#
+#e#####e###e###e###r###e#e#e#t#
+#e#eeeee#eeeee#eee#eee#t#e#e#e#
+#t###e#t#####e###e###e###e#e#r#
+#e#eee#ereee#teeee?e#eeeee#e#e#
+#e#e#e#e###e#e#e###e#e#e###e#e#
+#eee#e#e#eee#e#eer#eee#eeeetee#
+#####e###e###e###e#######e###e#
+#eer#eeeee#eee#eeeeteeeeeeee#e#
+#e#e###t#e###e#####e#e#####e#e#
+#e#eee#e#ereee#eeeee#e#ceeee#e#
+#e#e###e###e#e#e#####e###t###e#
+#e#e#eee#eee#eee#eeeee#eeeeeee#
+#e#e#e###e###e#####?#t#e#######
+#e#e#teeee#e#eeeee#e#e#eeeee#c#
+#e#e#e#####e#####t#e#e#####e#e#
+#c#eeeeeeetereeeeeee#eeee?etee#
+###############################
+1 1
+482
+482
+9

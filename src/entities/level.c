@@ -5,6 +5,7 @@
 #include "../../include/config.h"
 #include <raylib.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 Level* currentLevel;
 
@@ -49,4 +50,88 @@ void freeLevel(Level* level) {
     }
     freeMap(level->map);
     free(level);
+}
+
+bool isValidChar(char c) {
+    if(c == '#' ||  c == '?' || c == 'e' || c == 't' || c == 'r' || c == 'f' || c == 'c') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void readLevels() {
+    char path[256];
+    int n = 1;
+    int levelNumber = 1;
+    FILE* file;
+    Map* map;
+    int totalCrystals, finishLines;
+    bool levelError;
+    char c;
+    char cleaner;
+    int widthMap, heigthMap, initialPlayerX, initialPlayerY;
+    int initialEnergy, maxEnergy, minCrystals;
+    while(true) {
+        levelError = false;
+        totalCrystals = 0;
+        finishLines = 0;
+
+        snprintf(path, sizeof(path) * sizeof(char), "resources/levels/level%d.txt", n);
+        
+        file = fopen(path, "r");
+
+        if(file == NULL) {
+            printf("level%d.txt nao encontrado\n", n);
+            break;
+        }
+
+        
+        fscanf(file, "%d %d\n", &widthMap, &heigthMap);
+        char* grid = (char*) malloc(widthMap*heigthMap*sizeof(char));
+
+        for(int i = 0; i < heigthMap; i++) {
+            for(int j = 0; j < widthMap; j++) {
+                c = fgetc(file);
+                if(!isValidChar(c)) {
+                    levelError = true;
+                    break;
+                }
+                if(c == 'c') {
+                    totalCrystals++;
+                }
+                if(c == 'f') {
+                    finishLines++;
+                }
+                grid[i*widthMap + j] = c;
+            }
+            if(levelError) {
+                break;
+            }
+            while ((cleaner = fgetc(file)) != '\n' && cleaner != EOF); // jump line
+        }
+        fscanf(file, "%d %d\n", &initialPlayerX, &initialPlayerY);
+        fscanf(file, "%d\n", &initialEnergy);
+        fscanf(file, "%d\n", &maxEnergy);
+        fscanf(file, "%d", &minCrystals);
+
+        if(totalCrystals < minCrystals || initialEnergy <= 0 || maxEnergy <= 0 || finishLines != 1) {
+            levelError = true;
+        }
+
+
+        if(levelError) {
+            printf("Erro ao registrar level%d.txt\n", n);
+            free(grid);
+        } else {
+            map = createMap(widthMap, heigthMap, grid, initialPlayerX, initialPlayerY);
+            levels[countLevels] = createLevel(map, initialEnergy, maxEnergy, minCrystals, levelNumber);
+            countLevels++;
+            levelNumber++;
+            printf("level%d.txt registrado\n", n);
+        }
+        n++;
+        fclose(file);  
+    }
+
 }

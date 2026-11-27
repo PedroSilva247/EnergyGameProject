@@ -1,0 +1,26 @@
+21 21
+#####################
+#e#eeeee?eeeeeteeeee#
+#e#e#e#t#####e#e#####
+#e#e#e#eeeeeee#eetee#
+#e###e#e#######e###e#
+#ete#e#e#eeeeeee#e#e#
+###e#e#e###e###e#e#e#
+#c#e#e#eereete#eeee?#
+#e#e#e#######r###e#e#
+#e#eee#ceeee#eet#e#e#
+#t#########e###e###e#
+#eeeteereeeeec#eeeee#
+#e#####e#######e#t#e#
+#r#fee#t#eeeeeee#e#c#
+#e###e#e#e###?###e###
+#eee#e#eee#ceeet#eee#
+###e#e#e#e###e#e###e#
+#c#e#e#?#eeree#eeeee#
+#e#e#e#e###########t#
+#eeeee#eeeeeeeeeeeee#
+#####################
+1 1
+224
+224
+6

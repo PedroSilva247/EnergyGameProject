@@ -277,7 +277,7 @@ LDFLAGS = -L. -L$(RAYLIB_RELEASE_PATH) -L$(RAYLIB_PATH)/src
 
 ifeq ($(PLATFORM),PLATFORM_DESKTOP)
     ifeq ($(PLATFORM_OS),WINDOWS)
-        LDFLAGS += $(RAYLIB_PATH)/src/raylib.rc.data -Wl,--subsystem,windows
+        LDFLAGS += $(RAYLIB_PATH)/src/raylib.rc.data -Wl,--subsystem,console
     endif
 endif
 
